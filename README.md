@@ -2,7 +2,7 @@
 
 공개 가능한 글만 소유하는 독립 정적 사이트입니다. 이 저장소와 빌드 파이프라인은 공개 콘텐츠만 읽고 공개 사이트만 배포합니다.
 
-> 상태: Public MVP 구현 중. 아래의 두 샘플 글은 화면·검색·RSS 검증용이며 실제 경험담이 아닙니다.
+> 상태: Public MVP 구현·`gh-pages` 게시 완료. GitHub Pages의 게시 원본 설정은 확인이 필요합니다. 아래의 두 샘플 글은 화면·검색·RSS 검증용이며 실제 경험담이 아닙니다.
 
 ## 만들 결과
 
@@ -73,19 +73,20 @@ Series 메타데이터는 `src/content/series/`에 별도 Markdown으로 둡니�
 
 모바일 우선 레이아웃을 적용하고 키보드 탐색·명도 대비·이미지 대체 텍스트를 확인합니다. 글 상세에는 타입, 날짜, 태그, Series를 표시합니다. 검색과 RSS에는 공개된 글만 들어갑니다.
 
-## 예상 파일 구조
+## 파일 구조
 
 ```text
 src/
   content/notes/          공개 글 Markdown
   content/series/         Series 메타데이터
-  lib/content/            스키마, ID·참조 검증, 목록 정렬
+  content.config.ts       콘텐츠 스키마
+  lib/                    ID·참조 검증, 목록 정렬, 경로
   components/             카드, 배지, 탐색, 테마 전환
   layouts/                공통 화면과 글 레이아웃
   pages/                  위 경로의 정적 페이지와 rss.xml
 src/content/notes/assets/<id>/  글별 공개 이미지
 tests/                    콘텐츠 계약과 경로 검증
-scripts/                   로컬 빌드·검증·Pages 게시
+package.json              로컬 빌드·검증·Pages 게시 명령
 ```
 
 ## 구현 순서와 확인 방법
