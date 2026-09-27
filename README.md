@@ -6,19 +6,35 @@
 
 ## 만들 결과
 
-- Notes 목록과 글 상세, Story / Build / Tip / Take 분류, Tags, Series, About
+- 전체 글을 모아 보는 목록과 각 글의 본문 페이지
+- 글의 성격을 나타내는 유형(Story / Build / Tip / Take), 주제별 태그, 연재 묶음, 작성자 소개
 - Pagefind 정적 검색, RSS, SEO·Open Graph, 다크 모드
 - X·Threads로 연결되는 공개 사이트 링크와 공개 글 공유
-- GitHub Actions에서 정적 빌드 후 GitHub Pages 배포
+- 로컬에서 정적 사이트를 빌드·검증한 뒤 생성 파일을 GitHub Pages에 게시
 - 댓글, 좋아요, 공개 조회수, PWA, 백엔드, DB, Inside 연동은 만들지 않음
+
+여기서 **Notes**는 게시글 전체를 가리키는 이름입니다. 네 유형은 별도 사이트나 메뉴가 아니라 글마다 하나씩 붙이는 라벨입니다.
+
+| 용어 | 뜻 | 예시 |
+| --- | --- | --- |
+| Story | 경험과 관찰을 풀어 쓴 글 | 팀에서 AI 도구를 써 본 이야기 |
+| Build | 만들거나 실험한 과정을 기록한 글 | Agent 제작 기록(Build Log) |
+| Tip | 바로 적용할 수 있는 짧은 방법 | AX Tip |
+| Take | 생각이나 의견을 분명히 밝힌 글 | Salty Take |
+| Tag | 여러 글에 붙일 수 있는 주제 표시 | Agent, MCP |
+| Series | 순서대로 읽는 연재 묶음 | 팀의 AI 실험 1·2·3편 |
+| About | 작성자와 AX Notes를 소개하는 페이지 | 이 사이트를 쓰는 이유 |
+
+`악! AX`는 원래 제안에 있는 코너명입니다. 네 유형과 별도로 어떤 글을 묶을지 검토 중이며, 구현 전에 위치를 확정합니다.
 
 ## 기술과 배포 경계
 
 - Astro + TypeScript로 정적 HTML을 생성합니다. Markdown만 콘텐츠 입력으로 허용하고 MDX 및 콘텐츠 안의 실행 스크립트는 사용하지 않습니다.
 - Pagefind는 Astro 빌드가 끝난 공개 HTML을 색인합니다. 검색에 서버나 DB를 사용하지 않습니다.
-- `SITE_URL`과 Pages의 `base`를 배포 환경에서 설정합니다. RSS, canonical URL, Open Graph는 이 값을 공통으로 사용합니다. 도메인이 미정이어도 로컬 빌드는 가능하게 만듭니다.
+- `SITE_URL`과 Pages의 `base`를 로컬 배포 설정에서 지정합니다. RSS, canonical URL, Open Graph는 이 값을 공통으로 사용합니다. 도메인이 미정이어도 로컬 빌드는 가능하게 만듭니다.
 - Analytics는 공급자와 공개 범위가 결정된 뒤 공개 사이트에서만 별도 설정합니다. 키나 내부 분석 endpoint를 저장소에 넣지 않습니다.
-- GitHub Actions에는 이 저장소의 Pages 배포에 필요한 최소 권한만 부여합니다. 사내 서비스로 향하는 네트워크 요청과 Inside 관련 secret은 없습니다.
+- 로컬에서 콘텐츠 검증 → Astro 빌드 → Pagefind 색인 → 산출물 확인 순서로 실행합니다. 확인된 `dist/`만 `gh-pages` 브랜치 루트에 게시하고, GitHub Pages는 해당 브랜치를 그대로 제공합니다. GitHub Actions 빌드·배포는 설정하지 않습니다.
+- 배포 권한은 공개 저장소의 `gh-pages` 브랜치 쓰기로 한정합니다. 로컬 배포 스크립트에는 사내 서비스 주소나 Inside 관련 credential을 넣지 않습니다.
 
 ## 콘텐츠 계약
 
@@ -69,7 +85,7 @@ src/
   pages/                  위 경로의 정적 페이지와 rss.xml
 public/media/<id>/        공개 이미지·첨부파일
 tests/                    콘텐츠 계약과 경로 검증
-.github/workflows/        공개 빌드·Pages 배포
+scripts/                   로컬 빌드·검증·Pages 게시
 ```
 
 ## 구현 순서와 확인 방법
@@ -77,8 +93,8 @@ tests/                    콘텐츠 계약과 경로 검증
 1. Astro 프로젝트와 콘텐츠 스키마를 만들고 샘플 공개 글로 `id`·날짜·타입·Series 검증을 확인합니다.
 2. 목록·상세·태그·Series·About을 구현하고 고정 URL과 draft 제외를 확인합니다.
 3. 반응형 화면, 다크 모드, 검색, RSS, SEO·Open Graph를 연결합니다.
-4. GitHub Pages 빌드·배포를 설정하고 Public 저장소 단독 checkout에서 성공하는지 확인합니다.
-5. 소스·Actions 설정·빌드 산출물에 Inside 정보가 없고, 콘텐츠·이미지·링크에 공개 불가 정보가 없는지 검토합니다.
+4. 로컬에서 빌드·검증하고 `dist/`를 `gh-pages` 브랜치에 게시하는 스크립트를 만듭니다. Public 저장소 단독 checkout에서 빌드가 성공하는지 확인합니다.
+5. 소스·로컬 배포 설정·빌드 산출물에 Inside 정보가 없고, 콘텐츠·이미지·링크에 공개 불가 정보가 없는지 검토합니다.
 
 완료 기준은 공개 글 하나가 목록·상세·태그·검색·RSS에 일관되게 나타나고, draft는 어떤 공개 산출물에도 나타나지 않으며, Public 빌드가 Inside 저장소 없이 통과하는 것입니다.
 
