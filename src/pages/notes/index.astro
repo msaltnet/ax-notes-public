@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NoteRow from '../../components/NoteRow.astro';
+import { getSiteContent } from '../../lib/data';
+
+const { notes } = await getSiteContent();
+---
+
+<BaseLayout title="Notes" description="AX Notes의 모든 공개 글">
+  <div class="page-heading container"><span class="eyebrow">ARCHIVE / {String(notes.length).padStart(2, '0')} ENTRIES</span><h1>모든 기록</h1><p>경험과 실험, 바로 써 볼 팁, 아직 답을 찾는 생각을 모았습니다.</p></div>
+  <div class="page-content container">
+    <div class="filter-row" role="group" aria-label="글 유형 필터">
+      <button type="button" data-filter="all" aria-pressed="true">전체 {notes.length}</button>
+      <button type="button" data-filter="story" aria-pressed="false">Story</button>
+      <button type="button" data-filter="tip" aria-pressed="false">Tip</button>
+      <button type="button" data-filter="take" aria-pressed="false">Take</button>
+    </div>
+    <div class="list-rows">{notes.map((note) => <NoteRow note={note} />)}</div>
+  </div>
+  <script>
+    const filters = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    filters.forEach((button) => button.addEventListener('click', () => {
+      const active = button.dataset.filter;
+      filters.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      document.querySelectorAll<HTMLElement>('[data-note-type]').forEach((row) => {
+        row.hidden = active !== 'all' && row.dataset.noteType !== active;
+      });
+    }));
+  </script>
+</BaseLayout>

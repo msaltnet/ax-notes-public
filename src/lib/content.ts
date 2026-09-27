@@ -1,0 +1,42 @@
+export type NoteRecord = {
+  id: string;
+  data: {
+    id: string;
+    title: string;
+    date: string;
+    type: 'story' | 'tip' | 'take';
+    draft?: boolean;
+    series?: string;
+    series_order?: number;
+  };
+};
+
+export function assertContentIntegrity(notes: NoteRecord[], seriesIds: string[]): void {
+  const knownSeries = new Set(seriesIds);
+  const seenNotes = new Set<string>();
+  const seenPositions = new Set<string>();
+
+  for (const note of notes) {
+    if (seenNotes.has(note.id)) throw new Error(`Duplicate note ID: ${note.id}`);
+    seenNotes.add(note.id);
+    if (note.id !== note.data.id) throw new Error(`File ID ${note.id} differs from front matter ID ${note.data.id}`);
+
+    const { series, series_order: order } = note.data;
+    if (series && !knownSeries.has(series)) throw new Error(`Unknown series: ${series}`);
+    if (series && (!Number.isInteger(order) || (order ?? 0) < 1)) {
+      throw new Error(`series_order must be a positive integer for ${note.id}`);
+    }
+    if (!series && order !== undefined) throw new Error(`series_order requires series for ${note.id}`);
+    if (series) {
+      const key = `${series}:${order}`;
+      if (seenPositions.has(key)) throw new Error(`Duplicate series order: ${key}`);
+      seenPositions.add(key);
+    }
+  }
+}
+
+export function publishedNotes<T extends NoteRecord>(notes: T[]): T[] {
+  return notes
+    .filter(({ data }) => !data.draft)
+    .sort((a, b) => b.data.date.localeCompare(a.data.date) || a.id.localeCompare(b.id));
+}

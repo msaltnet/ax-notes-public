@@ -1,0 +1,31 @@
+{
+  "name": "ax-notes-public",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "test": "vitest run",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "verify": "npm run check && npm run build && npm test",
+    "predeploy": "npm run verify",
+    "deploy": "gh-pages -d dist -b gh-pages --nojekyll -m 'Publish AX Notes Public'"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.1",
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.4",
+    "@fontsource/ibm-plex-sans-kr": "5.3.0",
+    "@fontsource/noto-serif-kr": "5.3.0",
+    "astro": "7.3.5",
+    "pagefind": "1.5.2",
+    "rehype-sanitize": "^6.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.5",
+    "gh-pages": "^6.3.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.2"
+  }
+}

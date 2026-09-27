@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#202523"/>
+  <path d="M68 72H1132M68 558H1132" stroke="#78847a" stroke-width="2"/>
+  <path d="M68 85V545M1132 85V545" stroke="#435048" stroke-width="1"/>
+  <circle cx="1001" cy="316" r="126" fill="#e96943"/>
+  <path d="M920 388L1082 244M920 244L1082 388" stroke="#202523" stroke-width="13"/>
+  <text x="80" y="167" fill="#c3cac1" font-family="sans-serif" font-size="25" letter-spacing="8">FIELD NOTES ON AX</text>
+  <text x="71" y="365" fill="#f5f3ed" font-family="sans-serif" font-size="176" font-weight="700" letter-spacing="-13">AX</text>
+  <text x="359" y="365" fill="#f5f3ed" font-family="sans-serif" font-size="140" font-weight="700" letter-spacing="-8">NOTES</text>
+  <text x="80" y="511" fill="#c3cac1" font-family="sans-serif" font-size="25" letter-spacing="7">OBSERVE · BUILD · REFLECT</text>
+  <text x="1048" y="511" fill="#c3cac1" font-family="sans-serif" font-size="22" letter-spacing="3">2026</text>
+</svg>

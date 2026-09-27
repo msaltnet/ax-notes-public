@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSiteContent } from '../../lib/data';
+import { seriesHref } from '../../lib/links';
+
+const { notes, series } = await getSiteContent();
+---
+
+<BaseLayout title="Series" description="순서대로 이어 읽는 AX Notes 연재">
+  <div class="page-heading container"><span class="eyebrow">COLLECTIONS / {String(series.length).padStart(2, '0')}</span><h1>이어 읽기</h1><p>하나의 질문을 여러 편에 걸쳐 살펴봅니다.</p></div>
+  <div class="page-content container">{series.map((item) => <a class="series-card" href={seriesHref(item.id)}><span class="eyebrow">SERIES / {String(notes.filter((note) => note.data.series === item.id).length).padStart(2, '0')} NOTES</span><h2>{item.data.title}</h2><p>{item.data.description}</p><span class="text-link">연재 읽기 ↗</span></a>)}</div>
+</BaseLayout>

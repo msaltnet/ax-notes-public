@@ -1,0 +1,80 @@
+---
+import '../styles/global.css';
+import { href } from '../lib/links';
+
+interface Props { title?: string; description?: string; pageType?: 'website' | 'article' }
+const {
+  title = 'AX Notes',
+  description = '일과 기술의 변화를 직접 만들고 기록하는 작은 노트.',
+  pageType = 'website',
+} = Astro.props;
+const fullTitle = title === 'AX Notes' ? 'AX Notes — 변화의 현장 기록' : `${title} · AX Notes`;
+const canonical = Astro.url.href;
+const current = Astro.url.pathname;
+const nav = [
+  { label: 'Notes', path: '/notes/' },
+  { label: 'Series', path: '/series/' },
+  { label: 'Tags', path: '/tags/' },
+  { label: 'About', path: '/about/' },
+];
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ed" />
+    <meta name="description" content={description} />
+    <meta property="og:type" content={pageType} />
+    <meta property="og:site_name" content="AX Notes" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(href('/og.png'), Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title="AX Notes RSS" href={href('/rss.xml')} />
+    <link rel="icon" href={href('/favicon.svg')} type="image/svg+xml" />
+    <title>{fullTitle}</title>
+    <script is:inline>
+      try { document.documentElement.dataset.theme = localStorage.getItem('ax-theme') || 'light'; } catch { /* private browsing */ }
+    </script>
+  </head>
+  <body>
+    <div class="site-wrap">
+      <header class="site-header">
+        <a class="brand" href={href('/')} aria-label="AX Notes 홈">
+          <span class="brand-mark">AX<span class="brand-dot">.</span></span>
+          <span class="brand-name">NOTES</span>
+        </a>
+        <nav class="main-nav" aria-label="주 메뉴">
+          {nav.map(({ label, path }) => <a href={href(path)} aria-current={current.endsWith(path) ? 'page' : undefined}>{label}</a>)}
+        </nav>
+        <div class="header-actions">
+          <a class="search-shortcut" href={href('/search/')} aria-label="검색">⌕ <span>Search</span></a>
+          <button class="theme-toggle" type="button" aria-label="색상 모드 바꾸기" title="색상 모드 바꾸기">◐</button>
+        </div>
+      </header>
+      <main id="content"><slot /></main>
+      <footer class="site-footer">
+        <div class="footer-identity"><span class="footer-symbol">✳</span><span>생각이 작업이 되는 곳.<br />AX Notes</span></div>
+        <div class="footer-links">
+          <a href={href('/rss.xml')}>RSS ↗</a>
+          <a href={href('/about/')}>About ↗</a>
+          <a href={href('/search/')}>Search ↗</a>
+        </div>
+        <span class="footer-copy">© {new Date().getFullYear()} AX Notes</span>
+      </footer>
+    </div>
+    <script>
+      document.querySelector<HTMLButtonElement>('.theme-toggle')?.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('ax-theme', next); } catch { /* private browsing */ }
+      });
+    </script>
+  </body>
+</html>

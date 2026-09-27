@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSiteContent } from '../../lib/data';
+import { tagHref } from '../../lib/links';
+
+const { tags } = await getSiteContent();
+---
+
+<BaseLayout title="Tags" description="주제별로 AX Notes 읽기">
+  <div class="page-heading container"><span class="eyebrow">INDEX / TOPICS</span><h1>주제별로 읽기</h1><p>관심 있는 단어에서 시작해 기록 사이를 건너가 보세요.</p></div>
+  <div class="page-content container"><div class="tag-cloud">{tags.map((tag) => <a class="tag-chip" href={tagHref(tag.slug)}><span># {tag.label}</span><small>{String(tag.count).padStart(2, '0')}</small></a>)}</div></div>
+</BaseLayout>

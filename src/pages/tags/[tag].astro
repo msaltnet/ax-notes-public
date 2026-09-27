@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NoteRow from '../../components/NoteRow.astro';
+import { getSiteContent, type Note } from '../../lib/data';
+import { tagSlug } from '../../lib/paths';
+
+interface Props { label: string; notes: Note[] }
+export async function getStaticPaths() {
+  const { notes, tags } = await getSiteContent();
+  return tags.map((tag) => ({ params: { tag: tag.slug }, props: { label: tag.label, notes: notes.filter((note) => note.data.tags.some((value) => tagSlug(value) === tag.slug)) } }));
+}
+const { label, notes } = Astro.props;
+---
+
+<BaseLayout title={`# ${label}`} description={`${label} 주제의 AX Notes 글`}>
+  <div class="page-heading container"><span class="eyebrow">TAG / {String(notes.length).padStart(2, '0')} ENTRIES</span><h1># {label}</h1><p>이 주제와 연결된 기록을 모았습니다.</p></div>
+  <div class="page-content container"><div class="list-rows">{notes.map((note) => <NoteRow note={note} />)}</div></div>
+</BaseLayout>

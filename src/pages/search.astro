@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { href } from '../lib/links';
+---
+
+<BaseLayout title="Search" description="AX Notes 공개 글 검색">
+  <div class="page-heading container"><span class="eyebrow">FIND / AX NOTES</span><h1>기록 찾기</h1><p>단어 하나에서 다음 기록을 찾습니다.</p></div>
+  <div class="page-content container">
+    <label class="search-box"><input id="search-input" type="search" placeholder="무엇을 찾고 있나요?" autocomplete="off" aria-label="글 검색" /><span aria-hidden="true">⌕</span></label>
+    <p id="search-status" class="search-status" role="status">검색어를 입력해 주세요.</p>
+    <div id="search-results" class="list-rows"></div>
+  </div>
+  <script is:inline type="module" src={href('/search.js')}></script>
+</BaseLayout>
