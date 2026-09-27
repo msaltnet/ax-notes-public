@@ -1,3 +1,5 @@
+import { tagSlug } from './paths';
+
 export type NoteRecord = {
   id: string;
   data: {
@@ -39,4 +41,20 @@ export function publishedNotes<T extends NoteRecord>(notes: T[]): T[] {
   return notes
     .filter(({ data }) => !data.draft)
     .sort((a, b) => b.data.date.localeCompare(a.data.date) || a.id.localeCompare(b.id));
+}
+
+export function buildTagIndex(notes: Array<{ data: { tags: string[] } }>) {
+  const tagMap = new Map<string, { label: string; slug: string; count: number }>();
+  for (const note of notes) {
+    for (const label of note.data.tags) {
+      const slug = tagSlug(label);
+      const current = tagMap.get(slug);
+      if (current && current.label !== label) {
+        throw new Error(`Tag slug collision: ${current.label} and ${label} both map to ${slug}`);
+      }
+      if (current) current.count += 1;
+      else tagMap.set(slug, { label, slug, count: 1 });
+    }
+  }
+  return [...tagMap.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
 }

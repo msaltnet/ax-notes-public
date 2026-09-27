@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assertContentIntegrity, publishedNotes, type NoteRecord } from '../src/lib/content';
+import { assertContentIntegrity, buildTagIndex, publishedNotes, type NoteRecord } from '../src/lib/content';
 
 const note = (id: string, overrides: Partial<NoteRecord['data']> = {}): NoteRecord => ({
   id,
@@ -39,5 +39,21 @@ describe('published notes', () => {
       note('new', { date: '2026-09-27' }),
     ]);
     expect(results.map(({ id }) => id)).toEqual(['new', 'old']);
+  });
+});
+
+describe('tag index', () => {
+  it('rejects distinct labels that produce the same URL', () => {
+    expect(() => buildTagIndex([{ data: { tags: ['C++', 'C#'] } }])).toThrow(/tag slug collision/i);
+  });
+
+  it('counts a shared label across notes', () => {
+    expect(buildTagIndex([
+      { data: { tags: ['Agent'] } },
+      { data: { tags: ['Agent', 'MCP'] } },
+    ])).toEqual([
+      { label: 'Agent', slug: 'agent', count: 2 },
+      { label: 'MCP', slug: 'mcp', count: 1 },
+    ]);
   });
 });

@@ -1,6 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { assertContentIntegrity, publishedNotes } from './content';
-import { tagSlug } from './paths';
+import { assertContentIntegrity, buildTagIndex, publishedNotes } from './content';
 
 export type Note = CollectionEntry<'notes'>;
 export type Series = CollectionEntry<'series'>;
@@ -12,18 +11,9 @@ export async function getSiteContent() {
   }
   assertContentIntegrity(rawNotes, series.map(({ id }) => id));
   const notes = publishedNotes(rawNotes);
-  const tagMap = new Map<string, { label: string; slug: string; count: number }>();
-  for (const note of notes) {
-    for (const label of note.data.tags) {
-      const slug = tagSlug(label);
-      const current = tagMap.get(slug);
-      if (current) current.count += 1;
-      else tagMap.set(slug, { label, slug, count: 1 });
-    }
-  }
   return {
     notes,
     series: series.sort((a, b) => a.data.title.localeCompare(b.data.title)),
-    tags: [...tagMap.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)),
+    tags: buildTagIndex(notes),
   };
 }
