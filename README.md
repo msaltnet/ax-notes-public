@@ -7,25 +7,25 @@
 ## 만들 결과
 
 - 전체 글을 모아 보는 목록과 각 글의 본문 페이지
-- 글의 성격을 나타내는 유형(Story / Build / Tip / Take), 주제별 태그, 연재 묶음, 작성자 소개
+- 글의 성격을 나타내는 유형(Story / Tip / Take), 주제별 태그, 연재 묶음, 작성자 소개
 - Pagefind 정적 검색, RSS, SEO·Open Graph, 다크 모드
 - X·Threads로 연결되는 공개 사이트 링크와 공개 글 공유
 - 로컬에서 정적 사이트를 빌드·검증한 뒤 생성 파일을 GitHub Pages에 게시
 - 댓글, 좋아요, 공개 조회수, PWA, 백엔드, DB, Inside 연동은 만들지 않음
 
-여기서 **Notes**는 게시글 전체를 가리키는 이름입니다. 네 유형은 별도 사이트나 메뉴가 아니라 글마다 하나씩 붙이는 라벨입니다.
+여기서 **Notes**는 게시글 전체를 가리키는 이름입니다. 세 유형은 별도 사이트나 메뉴가 아니라 글마다 하나씩 붙이는 라벨입니다. 제작·실험 기록도 Story에 포함합니다.
 
 | 용어 | 뜻 | 예시 |
 | --- | --- | --- |
-| Story | 경험과 관찰을 풀어 쓴 글 | 팀에서 AI 도구를 써 본 이야기 |
-| Build | 만들거나 실험한 과정을 기록한 글 | Agent 제작 기록(Build Log) |
+| Story | 경험, 관찰, 제작·실험 과정을 풀어 쓴 글 | 팀의 AI 도구 경험, Agent 제작 기록 |
 | Tip | 바로 적용할 수 있는 짧은 방법 | AX Tip |
 | Take | 생각이나 의견을 분명히 밝힌 글 | Salty Take |
 | Tag | 여러 글에 붙일 수 있는 주제 표시 | Agent, MCP |
 | Series | 순서대로 읽는 연재 묶음 | 팀의 AI 실험 1·2·3편 |
 | About | 작성자와 AX Notes를 소개하는 페이지 | 이 사이트를 쓰는 이유 |
 
-`악! AX`는 원래 제안에 있는 코너명입니다. 네 유형과 별도로 어떤 글을 묶을지 검토 중이며, 구현 전에 위치를 확정합니다.
+`악! AX`는 원래 제안에 있는 코너명입니다. 세 유형과 별도로 어떤 글을 묶을지 검토 중이며, 구현 전에 위치를 확정합니다.
+`Build Log`는 독립 유형으로 만들지 않습니다. 개별 제작 기록에는 태그를 붙이고, 여러 편을 순서대로 읽게 할 때만 Series로 묶습니다.
 
 ## 기술과 배포 경계
 
@@ -54,7 +54,7 @@ draft: false # 선택 사항, 기본값 false
 ---
 ```
 
-필수 필드는 `id`, `title`, `description`, `date`, `type`입니다. `type`은 `story | build | tip | take` 중 하나입니다. `tags`는 문자열 목록, `series`는 선택적 단일 ID이며 Series가 있으면 양의 정수 `series_order`도 필수입니다. 날짜는 `YYYY-MM-DD`, ID는 소문자·숫자·하이픈만 허용합니다. 빌드에서 필수 값, ID 중복, 파일명 불일치, 존재하지 않는 Series와 중복된 Series 순서를 검사합니다. `draft: true` 글은 목록·상세·검색·RSS·사이트맵에 포함하지 않습니다.
+필수 필드는 `id`, `title`, `description`, `date`, `type`입니다. `type`은 `story | tip | take` 중 하나입니다. `tags`는 문자열 목록, `series`는 선택적 단일 ID이며 Series가 있으면 양의 정수 `series_order`도 필수입니다. 날짜는 `YYYY-MM-DD`, ID는 소문자·숫자·하이픈만 허용합니다. 빌드에서 필수 값, ID 중복, 파일명 불일치, 존재하지 않는 Series와 중복된 Series 순서를 검사합니다. `draft: true` 글은 목록·상세·검색·RSS·사이트맵에 포함하지 않습니다.
 
 Series 메타데이터는 `src/content/series/`에 별도 Markdown으로 둡니다. 태그는 글의 `tags`에서 생성하며 같은 표기는 하나로 정규화합니다. 공개 이미지는 `public/media/<id>/`에 두고 글에서 `/media/<id>/파일명`으로 참조합니다. 이미지 형식은 PNG·JPEG·WebP·AVIF로 제한합니다. 이렇게 하면 Inside 빌드가 공개 이미지도 함께 복사해 정적으로 제공할 수 있습니다. 외부 이미지 URL과 Markdown 원시 HTML은 초기 범위에서 사용하지 않습니다.
 
