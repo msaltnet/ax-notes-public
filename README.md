@@ -2,7 +2,7 @@
 
 공개 가능한 글만 소유하는 독립 정적 사이트입니다. 이 저장소와 빌드 파이프라인은 공개 콘텐츠만 읽고 공개 사이트만 배포합니다.
 
-> 상태: Public MVP 구현·`gh-pages` 게시 완료. GitHub Pages의 게시 원본 설정은 확인이 필요합니다. 아래의 두 샘플 글은 화면·검색·RSS 검증용이며 실제 경험담이 아닙니다.
+> 상태: Public MVP 구현·`gh-pages` 게시 완료. GitHub Pages의 게시 원본 설정은 확인이 필요합니다. 샘플 글은 화면·검색·RSS 검증용이며 실제 경험담이 아닙니다.
 
 ## 만들 결과
 
@@ -115,4 +115,4 @@ npm run deploy    # verify 후 dist/를 gh-pages 브랜치에 게시
 
 도메인을 바꾸면 로컬 배포 전에 `SITE_URL`과 `BASE_PATH`를 설정합니다. `SITE_URL`은 사이트 원점(예: `https://example.com`), `BASE_PATH`는 경로 접두사(예: `/ax-notes-public` 또는 `/`)입니다. GitHub 저장소 설정에서 Pages의 게시 원본을 `gh-pages` 브랜치의 루트로 지정해야 합니다. 게시 명령은 로컬에서만 실행하고, GitHub Actions 빌드는 사용하지 않습니다.
 
-현재 구현에는 두 개의 샘플 글(`first-agent`, `better-prompts`), 한 개의 샘플 Series, 공개 글 검색·RSS·사이트맵·Open Graph·다크 모드가 포함됩니다. Analytics 공급자, 실제 도메인, X·Threads 프로필 주소는 아직 정하지 않았으므로 추적 코드와 프로필 링크는 넣지 않았습니다.
+현재 구현에는 일곱 개의 샘플 글, 두 개의 샘플 Series(`field-notes`, `working-with-agents`), 공개 글 검색·RSS·사이트맵·Open Graph·다크 모드가 포함됩니다. Analytics 공급자, 실제 도메인, X·Threads 프로필 주소는 아직 정하지 않았으므로 추적 코드와 프로필 링크는 넣지 않았습니다.
