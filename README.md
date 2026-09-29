@@ -162,7 +162,7 @@ package.json              로컬 빌드·검증·Pages 게시 명령
 
 ## 로컬 실행과 게시
 
-Node.js 22 이상에서 실행합니다. 기본 배포 주소는 `https://dev-team-404.github.io/ax-notes-public/`로 설정되어 있습니다.
+Node.js 22 이상에서 실행합니다. 기본 배포 주소는 `https://ax.msalt.net/`이며, 커스텀 도메인의 루트에서 제공합니다. `public/CNAME`을 빌드 산출물로 복사하므로 다시 빌드해도 도메인 연결이 유지됩니다.
 
 ```bash
 npm ci
@@ -174,4 +174,4 @@ npm run deploy    # 선택: verify 후 docs/를 기존 gh-pages 브랜치 루트
 
 도메인을 바꾸면 로컬 배포 전에 `SITE_URL`과 `BASE_PATH`를 설정합니다. `SITE_URL`은 사이트 원점(예: `https://example.com`), `BASE_PATH`는 경로 접두사(예: `/ax-notes-public` 또는 `/`)입니다. 기본 게시 방식은 GitHub 저장소 **Settings → Pages → Deploy from a branch → main → /docs**입니다. `docs/`는 Git에서 제외하지 않으며 `npm run verify` 후 소스 변경과 함께 커밋·push합니다. `.nojekyll`도 산출물에 포함하여 `_astro/` 정적 자산을 그대로 제공합니다. 기존 `gh-pages` 브랜치 방식이 필요하면 `npm run deploy`를 사용하고 게시 원본을 `gh-pages` / `/ (root)`로 지정합니다. 게시 명령은 로컬에서만 실행하고, GitHub Actions 빌드는 사용하지 않습니다.
 
-현재 구현에는 일곱 개의 샘플 글, 두 개의 샘플 Series(`field-notes`, `working-with-agents`), 공개 글 검색·RSS·사이트맵·Open Graph·다크 모드가 포함됩니다. Analytics 공급자, 실제 도메인, X·Threads 프로필 주소는 아직 정하지 않았으므로 추적 코드와 프로필 링크는 넣지 않았습니다.
+현재 구현에는 일곱 개의 샘플 글, 두 개의 샘플 Series(`field-notes`, `working-with-agents`), 공개 글 검색·RSS·사이트맵·Open Graph·다크 모드가 포함됩니다. 실제 도메인은 `ax.msalt.net`입니다. Analytics 공급자와 X·Threads 프로필 주소는 아직 정하지 않았으므로 추적 코드와 프로필 링크는 넣지 않았습니다.

@@ -4,8 +4,8 @@ import { unified } from '@astrojs/markdown-remark';
 import rehypeSanitize from 'rehype-sanitize';
 
 export default defineConfig({
-  site: process.env.SITE_URL ?? 'https://dev-team-404.github.io',
-  base: process.env.BASE_PATH ?? '/ax-notes-public',
+  site: process.env.SITE_URL ?? 'https://ax.msalt.net',
+  base: process.env.BASE_PATH ?? '/',
   outDir: './docs',
   trailingSlash: 'always',
   integrations: [sitemap()],
