@@ -2,7 +2,7 @@
 
 공개 가능한 글만 소유하는 독립 정적 사이트입니다. 이 저장소와 빌드 파이프라인은 공개 콘텐츠만 읽고 공개 사이트만 배포합니다.
 
-> 상태: Public MVP 구현 완료. 빌드 산출물은 `docs/`에 생성합니다. GitHub Pages의 게시 원본을 `main` / `/docs`로 설정해야 합니다. 샘플 글은 화면·검색·RSS 검증용이며 실제 경험담이 아닙니다.
+> 상태: Public MVP 구현 완료. 빌드 산출물은 `docs/`에 생성합니다. GitHub Pages의 게시 원본은 **GitHub Actions**로 설정합니다. `main`에 push하면 검증·빌드 후 `https://ax.msalt.net/`에 자동 배포합니다. 샘플 글은 화면·검색·RSS 검증용이며 실제 경험담이 아닙니다.
 
 ## 만들 결과
 
@@ -33,7 +33,7 @@
 - Pagefind는 Astro 빌드가 끝난 공개 HTML을 색인합니다. 검색에 서버나 DB를 사용하지 않습니다.
 - `SITE_URL`과 Pages의 `base`를 로컬 배포 설정에서 지정합니다. RSS, canonical URL, Open Graph는 이 값을 공통으로 사용합니다. 도메인이 미정이어도 로컬 빌드는 가능하게 만듭니다.
 - Analytics는 공급자와 공개 범위가 결정된 뒤 공개 사이트에서만 별도 설정합니다. 키나 내부 분석 endpoint를 저장소에 넣지 않습니다.
-- 로컬에서 콘텐츠 검증 → Astro 빌드 → Pagefind 색인 → 산출물 확인 순서로 실행합니다. 확인한 `docs/`를 소스와 함께 커밋·push하고, GitHub Pages는 `main` 브랜치의 `/docs`를 제공합니다. GitHub Actions 빌드·배포는 설정하지 않습니다.
+- 로컬과 GitHub Actions에서 콘텐츠 검증 → Astro 빌드 → Pagefind 색인 → 테스트 순서로 실행합니다. `.github/workflows/deploy.yml`은 `main` push마다 `npm ci`와 `npm run verify`를 실행하고, 생성한 `docs/`를 Pages 아티팩트로 배포합니다. PR에서는 같은 검증만 실행하며 공개 배포하지 않습니다.
 - 게시에는 공개 저장소의 소스·산출물 커밋 권한을 사용합니다. 로컬 배포 스크립트에는 비공개 서비스 주소나 자격 증명을 넣지 않습니다.
 
 ## 콘텐츠 계약
@@ -115,7 +115,7 @@ AX Notes에는 AI와 Agent를 일에 적용하면서 **무엇을 시도했고, �
 4. 글과 이미지·링크를 공개 관점에서 검토합니다. 사내 사례는 일반화한 새 글로 작성하며 비공개 자료를 Public 저장소에 복사하지 않습니다.
 5. 발행할 날짜를 넣고 `draft: false`로 바꾼 뒤 `npm run verify`와 `npm run preview`로 본문·모바일·테마·태그·연재·검색·RSS를 확인합니다.
 6. 실제 운영을 시작하기 전, 기존 샘플 일곱 편은 `draft: true`로 전환하거나 제거합니다. 샘플 ID에 다른 내용의 실제 글을 덮어쓰지 않고 새 글에는 새 ID를 사용합니다. 빈 샘플 시리즈도 함께 정리합니다.
-7. 확인한 글과 갱신된 `docs/`를 함께 커밋·push하여 게시합니다.
+7. 확인한 글과 소스를 `main`에 커밋·push합니다. Actions가 새 `docs/`를 생성하고 검증이 통과한 경우에만 게시합니다.
 
 ## 화면과 경로
 
@@ -153,7 +153,7 @@ package.json              로컬 빌드·검증·Pages 게시 명령
 1. Astro 프로젝트와 콘텐츠 스키마를 만들고 샘플 공개 글로 `id`·날짜·타입·Series 검증을 확인합니다.
 2. 목록·상세·태그·Series·About을 구현하고 고정 URL과 draft 제외를 확인합니다.
 3. 반응형 화면, 다크 모드, 검색, RSS, SEO·Open Graph를 연결합니다.
-4. 로컬에서 빌드·검증하고 `docs/`를 생성하고 `main` 브랜치의 `/docs`에서 제공하도록 설정합니다. Public 저장소 단독 checkout에서 빌드가 성공하는지 확인합니다.
+4. 로컬에서 빌드·검증하고, GitHub Pages의 게시 원본을 GitHub Actions로 설정합니다. Public 저장소 단독 checkout과 Actions에서 빌드가 성공하는지 확인합니다.
 5. 소스·로컬 배포 설정·빌드 산출물의 콘텐츠·이미지·링크에 공개 불가 정보가 없는지 검토합니다.
 
 완료 기준은 공개 글 하나가 목록·상세·태그·검색·RSS에 일관되게 나타나고, draft는 어떤 공개 산출물에도 나타나지 않으며, 이 저장소만으로 빌드가 통과하는 것입니다.
@@ -169,9 +169,11 @@ npm ci
 npm run dev       # 로컬 개발 서버
 npm run verify    # 타입 검사 → 정적 빌드·Pagefind → 테스트
 npm run preview   # 빌드 산출물 확인
-npm run deploy    # 선택: verify 후 docs/를 기존 gh-pages 브랜치 루트에 게시
+npm run deploy    # 기존 gh-pages 방식이 필요한 경우에만 사용하는 수동 게시 명령
 ```
 
-도메인을 바꾸면 로컬 배포 전에 `SITE_URL`과 `BASE_PATH`를 설정합니다. `SITE_URL`은 사이트 원점(예: `https://example.com`), `BASE_PATH`는 경로 접두사(예: `/ax-notes-public` 또는 `/`)입니다. 기본 게시 방식은 GitHub 저장소 **Settings → Pages → Deploy from a branch → main → /docs**입니다. `docs/`는 Git에서 제외하지 않으며 `npm run verify` 후 소스 변경과 함께 커밋·push합니다. `.nojekyll`도 산출물에 포함하여 `_astro/` 정적 자산을 그대로 제공합니다. 기존 `gh-pages` 브랜치 방식이 필요하면 `npm run deploy`를 사용하고 게시 원본을 `gh-pages` / `/ (root)`로 지정합니다. 게시 명령은 로컬에서만 실행하고, GitHub Actions 빌드는 사용하지 않습니다.
+최초 설정은 GitHub 저장소 **Settings → Pages → Build and deployment → Source → GitHub Actions**이며, Custom domain은 `ax.msalt.net`으로 유지합니다. 이후 `main`에 push하면 자동 배포되며, Actions의 **Build and deploy AX Notes → Run workflow**에서도 실행할 수 있습니다. 별도 PAT나 배포 secret은 필요하지 않습니다. 배포 job만 `pages: write`와 `id-token: write` 권한을 사용합니다.
+
+워크플로가 빌드 시 `SITE_URL=https://ax.msalt.net`, `BASE_PATH=/`를 지정합니다. 도메인을 바꾸면 `astro.config.mjs`의 기본값, 워크플로 환경변수, `public/CNAME`과 Pages의 Custom domain을 함께 갱신합니다. `SITE_URL`은 사이트 원점, `BASE_PATH`는 경로 접두사입니다. 산출물은 Actions에서 매번 새로 만들므로 로컬 `docs/` 변경을 커밋할 필요는 없습니다. 기존에 추적 중인 `docs/`는 유지하지만 배포에는 Actions가 새로 생성한 파일을 사용합니다. `.nojekyll`도 아티팩트에 포함됩니다. 기존 `gh-pages` 브랜치 게시가 필요한 경우에만 `npm run deploy`를 사용하고 게시 원본을 별도로 변경합니다.
 
 현재 구현에는 일곱 개의 샘플 글, 두 개의 샘플 Series(`field-notes`, `working-with-agents`), 공개 글 검색·RSS·사이트맵·Open Graph·다크 모드가 포함됩니다. 실제 도메인은 `ax.msalt.net`입니다. Analytics 공급자와 X·Threads 프로필 주소는 아직 정하지 않았으므로 추적 코드와 프로필 링크는 넣지 않았습니다.
