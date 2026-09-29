@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const dist = (path: string) => join(process.cwd(), 'dist', path);
-const html = (path: string) => readFileSync(dist(path), 'utf8');
+const output = (path: string) => join(process.cwd(), 'docs', path);
+const html = (path: string) => readFileSync(output(path), 'utf8');
 const base = (process.env.BASE_PATH ?? '/ax-notes-public').replace(/\/+$/, '');
 const publicPath = (path: string) => `${base}${path}`;
 const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://dev-team-404.github.io').href;
@@ -18,9 +18,10 @@ describe('built public site', () => {
   });
 
   it('builds tag, series, search and RSS output', () => {
-    expect(existsSync(dist('tags/agent/index.html'))).toBe(true);
-    expect(existsSync(dist('series/field-notes/index.html'))).toBe(true);
-    expect(existsSync(dist('pagefind/pagefind.js'))).toBe(true);
+    expect(existsSync(output('tags/agent/index.html'))).toBe(true);
+    expect(existsSync(output('series/field-notes/index.html'))).toBe(true);
+    expect(existsSync(output('pagefind/pagefind.js'))).toBe(true);
+    expect(existsSync(output('.nojekyll'))).toBe(true);
     expect(html('rss.xml')).toContain('first-agent');
     expect(html('rss.xml')).toContain(`<link>${siteRoot}</link>`);
   });
@@ -33,7 +34,7 @@ describe('built public site', () => {
   });
 
   it('includes a share preview image', () => {
-    expect(existsSync(dist('og.png'))).toBe(true);
+    expect(existsSync(output('og.png'))).toBe(true);
     expect(html('index.html')).toContain('property="og:image"');
   });
 
@@ -42,13 +43,13 @@ describe('built public site', () => {
     const image = article.match(/src="([^"]*\/_astro\/diagram\.[^"]+\.(?:png|webp))"/);
     expect(image).not.toBeNull();
     expect(image![1]).toContain(publicPath('/_astro/'));
-    expect(existsSync(dist(image![1].slice(base.length).replace(/^\//, '')))).toBe(true);
+    expect(existsSync(output(image![1].slice(base.length).replace(/^\//, '')))).toBe(true);
   });
 
   it('loads search code without an undefined Vite preload helper', () => {
     const search = html('search/index.html');
     expect(search).toContain(`src="${publicPath('/search.js')}"`);
     expect(search).not.toContain('__VITE_PRELOAD__');
-    expect(existsSync(dist('search.js'))).toBe(true);
+    expect(existsSync(output('search.js'))).toBe(true);
   });
 });
