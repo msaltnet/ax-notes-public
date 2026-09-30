@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f3f0e7"><meta name="description" content="nanobot 같은 개인용 Agent를 상시 운영할 때 무료 VM과 호스팅 서비스를 고르는 기준."><meta property="og:type" content="article"><meta property="og:site_name" content="AX Notes"><meta property="og:title" content="무료 클라우드 컴퓨타 사용하기! · AX Notes"><meta property="og:description" content="nanobot 같은 개인용 Agent를 상시 운영할 때 무료 VM과 호스팅 서비스를 고르는 기준."><meta property="og:url" content="https://dev-team-404.github.io/ax-notes-public/notes/free-cloud-compute-for-agents/"><meta property="og:image" content="https://dev-team-404.github.io/ax-notes-public/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://dev-team-404.github.io/ax-notes-public/notes/free-cloud-compute-for-agents/"><link rel="alternate" type="application/rss+xml" title="AX Notes RSS" href="/ax-notes-public/rss.xml"><link rel="icon" href="/ax-notes-public/favicon-ax-16.png" type="image/png" sizes="16x16"><link rel="icon" href="/ax-notes-public/favicon-ax-32.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="/ax-notes-public/favicon-ax-180.png" sizes="180x180"><title>무료 클라우드 컴퓨타 사용하기! · AX Notes</title><script>
+      try { document.documentElement.dataset.theme = localStorage.getItem('ax-theme') || 'light'; } catch { /* private browsing */ }
+    </script><link rel="stylesheet" href="/ax-notes-public/_astro/BaseLayout.Bbx3-lR-.css"></head><body><div class="site-wrap"><header class="site-header"><a class="brand" href="/ax-notes-public/" aria-label="AX Notes 홈"><img class="brand-mark" src="/ax-notes-public/ax-monogram.svg" alt="" width="47" height="29"><span class="brand-name">NOTES</span></a><nav class="main-nav" aria-label="주 메뉴"><a href="/ax-notes-public/notes/">Notes</a><a href="/ax-notes-public/series/">Series</a><a href="/ax-notes-public/tags/">Tags</a><a href="/ax-notes-public/about/">About</a></nav><div class="header-actions"><a class="search-shortcut" href="/ax-notes-public/search/" aria-label="검색"><svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><span>Search</span></a><button class="theme-toggle" type="button" aria-label="다크 모드로 전환" title="다크 모드로 전환"><svg class="theme-icon theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg><svg class="theme-icon theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg></button></div></header><main id="content"><header class="article-header container"><span class="eyebrow">AX NOTES / TIP</span><h1 data-pagefind-body>무료 클라우드 컴퓨타 사용하기!</h1><p class="lede">nanobot 같은 개인용 Agent를 상시 운영할 때 무료 VM과 호스팅 서비스를 고르는 기준.</p><div class="article-meta"><span class="type-label">TIP</span><time datetime="2026-09-30">2026-09-30</time><span>·</span><span>Agent / Cloud / Self Hosting</span></div></header><div class="article-layout container"><article class="article-body" data-pagefind-body><p>클라우드에 챗봇 하나씩은 다들 돌리고 계시죠? 요즘 워낙 다양한 상용 서비스가 있어서 딱히 직접 돌릴 필요를 못 느끼시는 분들도 계시지만, 그래도 하나쯤은 간단한거라도 필요할 때가 있더라구요. 서버가 클라우드에 있으면 간단한 이벤트를 릴레이해주기도 좋고, 여러모로 쓸모가 많아서 오래 전부터 AWS Free tier를 사용했었습니다. 1년 무료인데, 서버 말고 DB나 lambda 같은 서비스도 일정량 무료로 제공해서 참 좋았는데, 그 혜택이 대폭 축소 되었더라구요.🤦‍♀️</p>
+<p>그 와중에 대안으로 찾은게 OCI 입니다. 오라클 클라우드 인프라스트럭쳐! 솔직히 처음 셋업할 때 진짜…x구렸는데, AWS랑 사용성 저하 체감이 너무 심해서 당황했는데, 요즘은 codex가 있잖아요. 도움을 받아가면서 셋업하고, 그 뒤로 운영까지 휘리릭~ 클라우드에 있으니 전력이나 추가 비용, 보안 문제도 많이 않고 여러모로 참 좋습니다. 오늘은 일단 OCI 포함 몇 개 서비스 소개시켜 드릴께요. 그리고 다음에는 거기에 올려서 사용할 만한 프로젝트를 소개시켜 드릴께요.😉</p>
+<p>이번에 알아본 건 nanobot처럼 가벼운 Agent를 올려 두고, 필요할 때 외부 LLM API를 호출하는 용도입니다. 모델까지 서버에서 직접 돌릴 생각이라면 얘기가 달라지지만, 이 정도 용도라면 GPU보다 <strong>계속 켜 둘 수 있는 서버와 데이터를 남길 저장 공간</strong>이 더 중요하더라구요. 물론 서버가 무료라고 OpenAI나 OpenRouter 같은 모델 API까지 무료가 되는 건 아닙니다. 이 비용은 따로 봐야 해요.</p>
+<p>2026년 9월 30일 기준으로 살펴보니, 제일 먼저 눈에 들어온 건 <strong>OCI Always Free</strong>였습니다. 무료 A1 인스턴스를 만들 수만 있다면 꽤 넉넉하게 쓸 수 있거든요. 문제는 그 자리가 좀처럼 나지 않는다는 것. 제 경험상 사양만 보고 가입하기보다는, 내 홈 리전에서 실제로 만들 수 있는지부터 확인하는 게 좋겠습니다. 여의치 않다면 <strong>Google Cloud Free Tier</strong>도 괜찮은 대안입니다. <del>AWS말고 UX가 구린건 매한가지 입니다</del></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>서비스</th><th>무료로 쓸 수 있는 컴퓨터</th><th>기간</th><th>제 느낌은요</th></tr></thead><tbody><tr><td>Oracle OCI</td><td>Ampere A1 총 2 OCPU·12GB RAM 상당</td><td>Always Free</td><td>사양은 넉넉하지만 무료 A1 자리를 구하기가 어렵습니다. 유휴 VM 회수 가능성도 있어요.</td></tr><tr><td>Google Cloud</td><td>미국 3개 리전의 e2-micro 1대·표준 디스크 30GB</td><td>Free Tier</td><td>작지만 챗봇 하나 돌리기에는 살펴볼 만해요.</td></tr><tr><td>Azure</td><td>지정된 B 시리즈 VM 월 750시간</td><td>신규 계정 12개월</td><td>1년 정도 실험하기 좋아요.</td></tr><tr><td>AWS</td><td>신규 계정 크레딧 최대 200달러</td><td>무료 계정 플랜 최대 6개월</td><td>이제는 기간을 정해 두고 써야 해요.</td></tr></tbody></table>
+<p>표에는 서버 사양만 간단히 적었습니다. 실제로 만들 때는 <strong>디스크와 네트워크도 무료 범위에 들어오는지</strong> 꼭 확인해야해요. 서버만 무료이고 다른 자원에서 요금이 나올 수 있으니까요. 클라우드 안에서 데이터 전송에도 과금이 되고, S3 같은 스토리지에 파일만 올려놔도 과금이 되는데, DB 자동 백업 설정을 잘 못 해놓으면 S3에 스냅샷이 쌓여서 요금이…</p>
+<p>그래서 지금 제가 사용하고 있는 것은 <strong>OCI</strong>입니다. <a href="https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm">Always Free 사양</a>이 그나마 가장 마음에 들고, 평생 무료라는것이 완전 혜자입니다. 무료 사양에 암페어랑 AMD Micro VM이 있는데, 암페어는 거의 잡기가 힘들더라구요. AMD 마이크로 VM 2개 사용 중인데, 만족하고 있습니다. 찾아보니까 더 줄었네요;</p>
+<p><a href="https://news.hada.io/topic?id=30458">오라클, Ampere A1 인스턴스 무료 사용 한도 축소</a></p>
+<blockquote>
+<p>기존 최대 4OCPU + 24GB 메모리에서 최대 2OCPU + 12GB 메모리로 축소.</p>
+</blockquote>
+<p><a href="https://docs.cloud.google.com/free/docs/free-cloud-features">Google Cloud e2-micro</a>는 제 용도에는 너무 작고 SSH로 접속하는 과정도 그닥입니다. 오래 쓰던 <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans.html">AWS</a>는 무료 기간이 끝난 뒤의 비용이 부담스럽구요. <a href="https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/create-free-services">Azure</a>는 마지막으로 써본 지 너무 오래돼서 지금 사용성까지 평가하긴 어렵습니다. 오늘은 어디에 올릴지만 살펴봤으니, 다음에는 이런 서버에 올려 두면 쓸 만한 프로젝트도 소개해 보겠습니다.😉</p></article><aside class="article-side" aria-label="글 정보"><span class="side-label">FILED UNDER</span><a href="/ax-notes-public/tags/agent/"># Agent ↗</a><a href="/ax-notes-public/tags/cloud/"># Cloud ↗</a><a href="/ax-notes-public/tags/self-hosting/"># Self Hosting ↗</a><div class="side-divider"></div><span class="side-label">SHARE PUBLIC NOTE</span><a href="https://twitter.com/intent/tweet?text=%EB%AC%B4%EB%A3%8C+%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C+%EC%BB%B4%ED%93%A8%ED%83%80+%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%21&amp;url=https%3A%2F%2Fdev-team-404.github.io%2Fax-notes-public%2Fnotes%2Ffree-cloud-compute-for-agents%2F" target="_blank" rel="noopener noreferrer">X에 공유 ↗</a><a href="https://www.threads.com/intent/post?text=%EB%AC%B4%EB%A3%8C+%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C+%EC%BB%B4%ED%93%A8%ED%83%80+%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%21+https%3A%2F%2Fdev-team-404.github.io%2Fax-notes-public%2Fnotes%2Ffree-cloud-compute-for-agents%2F" target="_blank" rel="noopener noreferrer">Threads에 공유 ↗</a><div class="side-divider"></div><a href="/ax-notes-public/notes/">← 모든 기록으로</a></aside></div></main><footer class="site-footer"><div class="footer-identity"><img class="footer-symbol" src="/ax-notes-public/ax-monogram.svg" alt="" width="40" height="25"><span>악! 소리나는 AX 기록</span></div><div class="footer-links"><a href="/ax-notes-public/rss.xml">RSS ↗</a><a href="/ax-notes-public/about/">About ↗</a><a href="/ax-notes-public/search/">Search ↗</a></div><span class="footer-copy">© 2026 AX Notes</span></footer></div><script type="module">var e=document.querySelector(`.theme-toggle`),t=()=>{let t=document.documentElement.dataset.theme===`dark`?`라이트 모드로 전환`:`다크 모드로 전환`;e?.setAttribute(`aria-label`,t),e?.setAttribute(`title`,t)};t(),e?.addEventListener(`click`,()=>{let e=document.documentElement.dataset.theme===`dark`?`light`:`dark`;document.documentElement.dataset.theme=e,t();try{localStorage.setItem(`ax-theme`,e)}catch{}});</script></body></html>
