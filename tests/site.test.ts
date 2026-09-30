@@ -32,12 +32,14 @@ describe('built public site', () => {
     expect(html('sitemap-0.xml')).toContain(`<loc>${siteRoot}</loc>`);
   });
 
-  it('publishes both sample notes with stable routes and navigation', () => {
+  it('publishes notes with stable routes and navigation', () => {
     const home = html('index.html');
+    const archive = html('notes/index.html');
     expect(home).toContain('AX Notes');
     expect(home).toContain(publicPath('/notes/first-agent/'));
-    expect(home).toContain(publicPath('/notes/better-prompts/'));
+    expect(archive).toContain(publicPath('/notes/better-prompts/'));
     expect(html('notes/first-agent/index.html')).toContain('첫 번째 Agent를 만들며');
+    expect(html('notes/better-prompts/index.html')).toContain('프롬프트를 고치기 전에');
   });
 
   it('builds tag, series, search and RSS output', () => {
