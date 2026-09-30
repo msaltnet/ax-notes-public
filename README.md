@@ -33,7 +33,7 @@
 - Pagefind는 Astro 빌드가 끝난 공개 HTML을 색인합니다. 검색에 서버나 DB를 사용하지 않습니다.
 - `SITE_URL`과 Pages의 `base`를 로컬 배포 설정에서 지정합니다. RSS, canonical URL, Open Graph는 이 값을 공통으로 사용합니다. 도메인이 미정이어도 로컬 빌드는 가능하게 만듭니다.
 - Analytics는 공급자와 공개 범위가 결정된 뒤 공개 사이트에서만 별도 설정합니다. 키나 내부 분석 endpoint를 저장소에 넣지 않습니다.
-- 로컬에서 콘텐츠 검증 → Astro 빌드 → Pagefind 색인 → 산출물 확인 순서로 실행합니다. 확인한 `docs/`를 소스와 함께 커밋·push하고, GitHub Pages는 `main` 브랜치의 `/docs`를 제공합니다. GitHub Actions 빌드·배포는 설정하지 않습니다.
+- 로컬에서 콘텐츠 검증 → Astro 빌드 → Pagefind 색인 → 산출물 확인 순서로 실행합니다. `dev-team-404`의 `main`에 push하면 소스를 `msaltnet/ax-notes-public`로 동기화하고, 대상 저장소의 기존 Action이 빌드·배포합니다.
 - 게시에는 공개 저장소의 소스·산출물 커밋 권한을 사용합니다. 로컬 배포 스크립트에는 비공개 서비스 주소나 자격 증명을 넣지 않습니다.
 
 ## 콘텐츠 계약
@@ -172,6 +172,18 @@ npm run preview   # 빌드 산출물 확인
 npm run deploy    # 선택: verify 후 docs/를 기존 gh-pages 브랜치 루트에 게시
 ```
 
-도메인을 바꾸면 로컬 배포 전에 `SITE_URL`과 `BASE_PATH`를 설정합니다. `SITE_URL`은 사이트 원점(예: `https://example.com`), `BASE_PATH`는 경로 접두사(예: `/ax-notes-public` 또는 `/`)입니다. 기본 게시 방식은 GitHub 저장소 **Settings → Pages → Deploy from a branch → main → /docs**입니다. `docs/`는 Git에서 제외하지 않으며 `npm run verify` 후 소스 변경과 함께 커밋·push합니다. `.nojekyll`도 산출물에 포함하여 `_astro/` 정적 자산을 그대로 제공합니다. 기존 `gh-pages` 브랜치 방식이 필요하면 `npm run deploy`를 사용하고 게시 원본을 `gh-pages` / `/ (root)`로 지정합니다. 게시 명령은 로컬에서만 실행하고, GitHub Actions 빌드는 사용하지 않습니다.
+도메인을 바꾸면 빌드 전에 `SITE_URL`과 `BASE_PATH`를 설정합니다. `SITE_URL`은 사이트 원점(예: `https://example.com`), `BASE_PATH`는 경로 접두사(예: `/ax-notes-public` 또는 `/`)입니다. 로컬 게시 방식은 GitHub 저장소 **Settings → Pages → Deploy from a branch → main → /docs**입니다. `docs/`는 Git에서 제외하지 않으며 `npm run verify` 후 소스 변경과 함께 커밋·push할 수 있습니다. `.nojekyll`도 산출물에 포함하여 `_astro/` 정적 자산을 그대로 제공합니다. 기존 `gh-pages` 브랜치 방식이 필요하면 `npm run deploy`를 사용하고 게시 원본을 `gh-pages` / `/ (root)`로 지정합니다.
+
+## dev-team-404에서 msaltnet으로 동기화
+
+`dev-team-404/ax-notes-public`의 `main`에 push하면 [동기화 워크플로](.github/workflows/sync-to-msaltnet.yml)가 `msaltnet/ax-notes-public`의 `main`에 사이트 파일을 반영합니다. 대상 저장소의 `.github/`는 보존하므로 기존 배포 Action을 덮어쓰지 않습니다. 대상의 `docs/`도 보존하며, 대상 Action이 빌드 산출물을 생성합니다. 원본과 대상이 같으면 커밋을 만들지 않고 종료하며, 대상 브랜치가 먼저 변경되어 push가 거절되면 강제 push하지 않고 실패합니다.
+
+동기화를 켜려면 `msaltnet` 계정에서 fine-grained personal access token을 만들고 다음과 같이 설정합니다.
+
+1. **Resource owner**: `msaltnet`, **Repository access**: `Only select repositories` → `ax-notes-public`.
+2. **Repository permissions**: `Contents` → `Read and write`. `Metadata: Read`는 자동으로 포함됩니다. 대상 `.github/`를 수정하지 않으므로 `Workflows` 권한은 필요하지 않습니다.
+3. 토큰을 **dev-team-404/ax-notes-public → Settings → Secrets and variables → Actions → New repository secret**에 `PUBLIC_SYNC_TOKEN`으로 등록합니다. 토큰 값은 Git 파일에 넣지 않습니다.
+
+그다음 원본 저장소의 `main`에 push하거나 워크플로를 수동 실행하여 동기화를 확인합니다. 대상 저장소의 빌드·배포 Action은 토큰으로 만들어진 push에서 실행됩니다. 토큰이 만료되면 Secret을 갱신해야 합니다.
 
 현재 구현에는 일곱 개의 샘플 글, 두 개의 샘플 Series(`field-notes`, `working-with-agents`), 공개 글 검색·RSS·사이트맵·Open Graph·다크 모드가 포함됩니다. Analytics 공급자, 실제 도메인, X·Threads 프로필 주소는 아직 정하지 않았으므로 추적 코드와 프로필 링크는 넣지 않았습니다.
