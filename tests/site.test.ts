@@ -1,20 +1,45 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const output = (path: string) => join(process.cwd(), 'docs', path);
 const html = (path: string) => readFileSync(output(path), 'utf8');
-const base = (process.env.BASE_PATH ?? '/ax-notes-public').replace(/\/+$/, '');
+const base = (process.env.BASE_PATH ?? '/').replace(/\/+$/, '');
 const publicPath = (path: string) => `${base}${path}`;
-const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://dev-team-404.github.io').href;
+const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://ax.msalt.net').href;
 
 describe('built public site', () => {
-  it('publishes both sample notes with stable routes and navigation', () => {
+  it('serves every local link and asset from the configured mount point', () => {
+    const pages = readdirSync(output(''), { recursive: true })
+      .filter((path): path is string => typeof path === 'string' && path.endsWith('.html'));
+    expect(pages.length).toBeGreaterThan(0);
+    for (const page of pages) {
+      const links = html(page).matchAll(/(?:href|src)="(\/[^"\s]*)"/g);
+      for (const [, link] of links) {
+        if (link.startsWith('//')) continue;
+        expect(link.startsWith(`${base}/`), `${page}: ${link}`).toBe(true);
+        const path = decodeURIComponent(link.split(/[?#]/)[0].slice(base.length));
+        const target = path.endsWith('/') ? `${path}index.html` : path;
+        expect(existsSync(output(target.replace(/^\//, ''))), `${page}: ${link}`).toBe(true);
+      }
+    }
+  });
+
+  it('publishes canonical and preview URLs for the configured domain', () => {
     const home = html('index.html');
+    expect(home).toContain(`<link rel="canonical" href="${siteRoot}">`);
+    expect(home).toContain(`property="og:image" content="${new URL('og.png', siteRoot).href}"`);
+    expect(html('sitemap-0.xml')).toContain(`<loc>${siteRoot}</loc>`);
+  });
+
+  it('publishes notes with stable routes and navigation', () => {
+    const home = html('index.html');
+    const archive = html('notes/index.html');
     expect(home).toContain('AX Notes');
     expect(home).toContain(publicPath('/notes/first-agent/'));
-    expect(home).toContain(publicPath('/notes/better-prompts/'));
+    expect(archive).toContain(publicPath('/notes/better-prompts/'));
     expect(html('notes/first-agent/index.html')).toContain('첫 번째 Agent를 만들며');
+    expect(html('notes/better-prompts/index.html')).toContain('프롬프트를 고치기 전에');
   });
 
   it('builds tag, series, search and RSS output', () => {
@@ -36,6 +61,10 @@ describe('built public site', () => {
   it('includes a share preview image', () => {
     expect(existsSync(output('og.png'))).toBe(true);
     expect(html('index.html')).toContain('property="og:image"');
+  });
+
+  it('preserves the custom domain when rebuilding the Pages output', () => {
+    expect(html('CNAME').trim()).toBe('ax.msalt.net');
   });
 
   it('keeps article images within the Pages base path', () => {

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"version":"1.5.2","languages":{"ko":{"hash":"ko_3b43abbd44","wasm":null,"page_count":8}},"include_characters":["_","‿","⁀","⁔","︳","︴","﹍","﹎","﹏","＿"]}
+=======
+{"version":"1.5.2","languages":{"ko":{"hash":"ko_32075e857a","wasm":null,"page_count":7}},"include_characters":["_","‿","⁀","⁔","︳","︴","﹍","﹎","﹏","＿"]}
+>>>>>>> fix/stale-home-note-test
