@@ -3,7 +3,6 @@ id: free-cloud-compute-for-agents
 title: "무료 클라우드 컴퓨타 사용하기!"
 description: "nanobot 같은 개인용 Agent를 상시 운영할 때 무료 VM과 호스팅 서비스를 고르는 기준."
 date: "2026-09-30"
-type: tip
 tags: [Agent, Cloud, Self Hosting]
 ---
 

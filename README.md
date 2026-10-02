@@ -1,189 +1,48 @@
-# AX Notes Public — 개발 설계
+# AX Notes Public
 
-공개 가능한 글만 소유하는 독립 정적 사이트입니다. 이 저장소와 빌드 파이프라인은 공개 콘텐츠만 읽고 공개 사이트만 배포합니다.
+> **악소리 나는 AX 경험담.** AI로 일하는 방식을 바꾸며 배우고 생각한 것들.
 
-> 상태: Public MVP 구현 완료. 빌드 산출물은 `docs/`에 생성합니다. GitHub Pages의 게시 원본을 `main` / `/docs`로 설정해야 합니다. 샘플 글은 화면·검색·RSS 검증용이며 실제 경험담이 아닙니다.
+공개 가능한 경험을 기록하고 작은 AX 도구를 제공하는 독립 Astro 정적 사이트입니다. Inside 저장소·콘텐츠·빌드에 의존하지 않습니다.
 
-## 만들 결과
+## 콘텐츠
 
-- 전체 글을 모아 보는 목록과 각 글의 본문 페이지
-- 글의 성격을 나타내는 유형(Story / Tip / Take), 주제별 태그, 연재 묶음, 작성자 소개
-- Pagefind 정적 검색, RSS, SEO·Open Graph, 다크 모드
-- 공개 글의 X·Threads 공유 링크
-- 로컬에서 정적 사이트를 빌드·검증한 뒤 생성 파일을 GitHub Pages에 게시
-- 댓글, 좋아요, 공개 조회수, PWA, 백엔드, DB는 만들지 않음
+모든 글은 Note입니다. 카테고리와 편집 라벨은 사용하지 않습니다. aftertaste는 글 끝의 한 문장입니다.
 
-여기서 **Notes**는 게시글 전체를 가리키는 이름입니다. 세 유형은 별도 사이트나 메뉴가 아니라 글마다 하나씩 붙이는 라벨입니다. 제작·실험 기록도 Story에 포함합니다.
+Note는 src/content/notes/<id>.md에 둡니다. id·title·description·date는 필수이고 tags·collection·collection_order·aftertaste·draft는 선택적입니다. id는 파일명과 일치하며 URL /notes/<id>/는 유지합니다. collection은 최대 하나이고 지정하면 양의 정수 collection_order가 필수입니다.
 
-| 용어 | 뜻 | 예시 |
-| --- | --- | --- |
-| Story | 경험, 관찰, 제작·실험 과정을 풀어 쓴 글 | 팀의 AI 도구 경험, Agent 제작 기록 |
-| Tip | 바로 적용할 수 있는 짧은 방법 | AX Tip |
-| Take | 생각이나 의견을 분명히 밝힌 글 | Salty Take |
-| Tag | 여러 글에 붙일 수 있는 주제 표시 | Agent, MCP |
-| Series | 순서대로 읽는 연재 묶음 | 팀의 AI 실험 1·2·3편 |
-| About | 작성자와 AX Notes를 소개하는 페이지 | 이 사이트를 쓰는 이유 |
+Collection은 src/content/collections/<id>.md에 둡니다. id·title·description·type은 필수입니다. type: series는 주제 탐구, type: project는 목표와 결과물의 제작 기록입니다. Project에는 goal과 status(planned / in-progress / completed / paused)가 필수이며 planned_notes와 result(/labs/<id>/)를 선택적으로 사용합니다.
 
-`악! AX`는 원래 제안에 있는 코너명입니다. 세 유형과 별도로 어떤 글을 묶을지 검토 중이며, 구현 전에 위치를 확정합니다.
-`Build Log`는 독립 유형으로 만들지 않습니다. 개별 제작 기록에는 태그를 붙이고, 여러 편을 순서대로 읽게 할 때만 Series로 묶습니다.
+날짜는 따옴표로 감싼 YYYY-MM-DD입니다. 중복 ID, 잘못된 파일명, 없는 Collection, 누락·중복 순서는 빌드 오류입니다. draft는 목록·상세·검색·RSS·진행률에서 제외합니다. 기존 이미지 경로와 /series/<id>/ 주소를 유지합니다.
 
-## 기술과 배포 경계
+기존 first-agent와 better-prompts는 화면 검증용 샘플입니다. Context Builder Project는 이 저장소에 추가한 도구의 첫 구현 범위를 기록합니다.
 
-- Astro + TypeScript로 정적 HTML을 생성합니다. Markdown만 콘텐츠 입력으로 허용하고 MDX 및 콘텐츠 안의 실행 스크립트는 사용하지 않습니다.
-- Pagefind는 Astro 빌드가 끝난 공개 HTML을 색인합니다. 검색에 서버나 DB를 사용하지 않습니다.
-- `SITE_URL`과 Pages의 `base`를 로컬 배포 설정에서 지정합니다. RSS, canonical URL, Open Graph는 이 값을 공통으로 사용합니다. 도메인이 미정이어도 로컬 빌드는 가능하게 만듭니다.
-- Analytics는 공급자와 공개 범위가 결정된 뒤 공개 사이트에서만 별도 설정합니다. 키나 내부 분석 endpoint를 저장소에 넣지 않습니다.
-- 로컬에서 콘텐츠 검증 → Astro 빌드 → Pagefind 색인 → 산출물 확인 순서로 실행합니다. `dev-team-404`의 `main`에 push하면 소스를 `msaltnet/ax-notes-public`로 동기화하고, 대상 저장소의 기존 Action이 빌드·배포합니다.
-- 게시에는 공개 저장소의 소스·산출물 커밋 권한을 사용합니다. 로컬 배포 스크립트에는 비공개 서비스 주소나 자격 증명을 넣지 않습니다.
+## 화면과 Labs
 
-## 콘텐츠 계약
+메뉴는 Notes · Series · Labs · About · Search입니다. 태그는 Notes와 글 상세에서 접근합니다. 홈은 Hero → Featured Note → Projects → From the Lab → Latest Notes 순서입니다.
 
-글은 `src/content/notes/<id>.md`에 둡니다. 발행 후 `id`를 바꾸지 않고, 파일명과 `id`를 일치시킵니다. URL은 `/notes/<id>/`로 고정하므로 제목을 바꿔도 기존 링크가 유지됩니다.
+Labs는 콘텐츠 Collection이 아니라 실제 도구입니다. 첫 Lab은 Context Builder입니다. Role·Goals·Recurring Tasks·Decision Criteria·Tools·Output Preferences를 Markdown으로 정리하고 복사·다운로드합니다. 입력은 브라우저에서만 처리하고 서버 전송·자동 저장하지 않습니다.
 
-```yaml
----
-id: claude-code-team
-title: "Claude Code를 팀에서 사용하며 느낀 5가지"
-description: "팀에서 도구를 시험하며 얻은 공개 가능한 관찰"
-date: 2026-09-27
-type: story
-tags: [AI Coding, Agent]
-series: team-ai-experiments # 선택 사항
-series_order: 1 # series가 있으면 필수
-draft: false # 선택 사항, 기본값 false
----
-```
+Project는 제작 과정을, Lab은 사용할 결과물을 제공합니다. AX Work Mapper, Agent Readiness Check, Agent Design Canvas는 아이디어 단계입니다.
 
-필수 필드는 `id`, `title`, `description`, `date`, `type`입니다. `type`은 `story | tip | take` 중 하나입니다. `tags`는 문자열 목록, `series`는 선택적 단일 ID이며 Series가 있으면 양의 정수 `series_order`도 필수입니다. 날짜는 `YYYY-MM-DD`, ID는 소문자·숫자·하이픈만 허용합니다. 빌드에서 필수 값, ID 중복, 파일명 불일치, 존재하지 않는 Series와 중복된 Series 순서를 검사합니다. `draft: true` 글은 목록·상세·검색·RSS·사이트맵에 포함하지 않습니다.
+X는 기술과 Insight, Threads는 경험과 고민을 공유합니다. 글 상세의 공유 링크와 RSS를 제공합니다. 계정 URL은 확정 후 추가합니다. 댓글·좋아요·공개 조회수·뉴스레터·계정·결제·PWA·Native App은 V1 범위 밖입니다.
 
-Series 메타데이터는 `src/content/series/`에 별도 Markdown으로 둡니다. 태그는 글의 `tags`에서 생성하며 같은 표기는 하나로 정규화합니다. 글의 공개 이미지는 `src/content/notes/assets/<id>/`에 두고 본문에서 `![대체 텍스트](./assets/<id>/파일명.png)`처럼 참조합니다. Astro가 이미지 URL에 배포 경로를 붙여 출력하므로 Pages 하위 경로에서도 연결됩니다. 이미지 형식은 PNG·JPEG·WebP·AVIF로 제한합니다. 외부 이미지 URL과 Markdown 원시 HTML은 초기 범위에서 사용하지 않습니다.
+## 실행과 검증
 
-## 실제 글 작성 가이드
-
-AX Notes에는 AI와 Agent를 일에 적용하면서 **무엇을 시도했고, 어디에서 막혔으며, 다음에는 무엇을 바꿀지**를 기록합니다. 독자는 비슷한 일을 직접 해 보려는 개발자와 실무자로 가정합니다. 한 글에 하나의 질문을 담고, 독자가 가져갈 방법이나 판단 기준을 남깁니다.
-
-아래 제목은 작성 후보입니다. 실제로 겪은 사례와 남아 있는 자료를 기준으로 선택하고, 결과를 미리 단정하는 제목은 관찰한 내용에 맞게 고칩니다. 아직 해 보지 않은 주제는 실험을 먼저 진행하거나 Take에서 질문·가설로 다룹니다.
-
-### 주제 후보
-
-| 유형 | 제목 후보 | 글에서 답할 질문 | 준비할 자료 |
-| --- | --- | --- | --- |
-| Story | AI와 함께 AX Notes를 만들며 바뀐 요구사항 | 첫 요청에서 최종 화면까지 어떤 결정이 바뀌었고, 왜 바뀌었나? | 공개 가능한 초기·최종 화면, 요청과 수정 사례, 커밋 |
-| Story | 반복 업무 하나를 Agent에게 맡겨 본 기록 | 어떤 업무를 골랐고, 사람이 맡아야 할 단계는 어디였나? | 실제 입력·출력 예시, 실패 사례, 검토 과정 |
-| Story | Agent가 만든 코드를 검토하며 발견한 문제 | 동작하는 결과와 유지할 수 있는 결과 사이에 어떤 차이가 있었나? | 공개 가능한 변경 diff, 발견한 문제, 수정 근거 |
-| Tip | Agent에게 작업을 맡기기 전에 적는 완료 조건 | 어떤 조건을 적어야 결과를 확인하기 쉬운가? | 실제 요청의 전후 비교, 완료 조건과 검증 명령 |
-| Tip | 긴 대화 뒤 다음 작업으로 맥락을 넘기는 방법 | 무엇을 남겨야 결정과 제약이 다음 작업에서도 유지되는가? | 사용한 인계 메모, 빠졌던 정보, 개선한 양식 |
-| Tip | 프롬프트를 고치기 전에 입력을 정리해 보기 | 같은 작업에서 입력을 어떻게 나누었고 결과는 어떻게 달라졌나? | 원본·요구사항·예시를 분리한 입력과 결과 비교 |
-| Tip | Markdown 글을 검색·RSS·공유까지 확인하는 발행 루틴 | 글을 추가한 뒤 어느 화면과 산출물을 확인해야 하나? | 이 사이트의 front matter, 로컬 확인 순서, 공개 URL |
-| Take | 생성 시간보다 검토 시간을 먼저 재고 싶다 | 무엇을 측정해야 AI가 실제로 일을 줄였다고 판단할 수 있을까? | 관찰한 작업, 검토 비용, 반례와 아직 모르는 점 |
-| Take | Agent에게 자율성을 줄 때 먼저 정할 경계 | 어떤 결정은 맡길 수 있고, 어떤 결정은 사람이 확인해야 할까? | 실제 판단 사례, 권한·완료 조건에 대한 자신의 기준 |
-
-### 처음 발행할 다섯 편
-
-이미 진행한 AX Notes 제작 기록에서 시작하면 화면과 커밋을 근거로 글을 쓸 수 있습니다. 이후 글은 실제 사례가 준비되는 순서에 맞춰 조정합니다.
-
-1. **Story — AI와 함께 AX Notes를 만들며 바뀐 요구사항**: 사이트를 만들게 된 이유, 화면 수정 한두 가지, 그 과정에서 배운 점을 소개합니다.
-2. **Tip — Agent에게 작업을 맡기기 전에 적는 완료 조건**: 첫 글의 작업 중 하나를 골라 요청·완료 조건·확인 방법을 보여 줍니다.
-3. **Story — Agent가 만든 코드를 검토하며 발견한 문제**: 실제로 발견한 문제 하나를 재현하고, 수정과 검증 과정을 기록합니다.
-4. **Tip — 긴 대화 뒤 다음 작업으로 맥락을 넘기는 방법**: 자신이 사용한 인계 메모를 공개 가능한 예시로 정리합니다.
-5. **Take — 생성 시간보다 검토 시간을 먼저 재고 싶다**: 앞선 경험을 바탕으로 현재의 판단과 앞으로 확인할 질문을 적습니다.
-
-### 시리즈 구성 후보
-
-시리즈는 한 질문을 여러 편에 걸쳐 따라갈 때 사용합니다. 각 편은 따로 읽어도 이해되게 쓰고, 이전 편의 결과가 다음 편의 출발점이 되도록 연결합니다.
-
-| 시리즈 후보 | 중심 질문 | 편별 구성 |
-| --- | --- | --- |
-| AI와 함께 만드는 AX Notes (`building-ax-notes`) | AI와 실제 제품을 만들 때 사람은 어떤 결정을 해야 하나? | 1. 시작과 범위 → 2. 화면과 요구사항 수정 → 3. 코드 검토와 검증 → 4. 첫 글 발행과 운영 |
-| 작은 업무를 Agent에게 맡기기 (`agent-in-practice`) | 반복 업무 하나를 믿고 맡기려면 무엇이 필요한가? | 1. 업무 선택 → 2. 입력과 완료 조건 → 3. 실패와 사람의 검토 → 4. 효과 측정과 다음 개선 |
-
-이 이름과 ID는 제안이며 아직 콘텐츠로 등록하지 않았습니다. 시작할 시리즈 하나만 고르고 `src/content/series/<id>.md`에 메타데이터를 만든 뒤, 해당 글에 `series`와 `series_order`를 넣습니다. 같은 주제를 느슨하게 묶는 경우에는 태그를 사용합니다.
-
-### 유형별 본문 구성
-
-- **Story**: 상황과 문제 → 시도한 방법 → 실제 결과·실패 → 바꾼 결정 → 다음 시도. 독자가 판단할 수 있도록 구체적인 장면이나 입력·출력 하나를 담습니다.
-- **Tip**: 적용할 상황 → 준비 조건 → 실행 단계 → 확인 방법 → 잘 맞지 않는 경우. 그대로 따라 할 수 있는 짧은 예시를 포함합니다.
-- **Take**: 자신의 주장 → 그렇게 생각한 관찰 → 반례·다른 관점 → 현재의 판단 → 열린 질문. 경험, 의견, 아직 확인하지 못한 가설을 구분합니다.
-
-시간·비용·정확도 같은 수치는 측정한 경우에만 씁니다. 비교 조건과 확인 방법을 함께 적고, 측정하지 않았다면 정성적인 관찰로 표현합니다. 도구 사용법을 다룰 때에는 실제 사용한 버전과 공식 참고 링크를 남깁니다.
-
-### 초안에서 발행까지
-
-1. 제목보다 먼저 “이 글이 답할 질문”과 “독자가 가져갈 한 가지”를 적습니다.
-2. 실제 사례, 실패, 화면이나 코드 등 공개 가능한 근거를 모읍니다.
-3. 새 `id`로 `src/content/notes/<id>.md`를 만들고 필수 필드와 `draft: true`를 넣어 초안을 작성합니다. 초안은 사이트에 출력되지 않으므로 본문은 Markdown 편집기에서 확인합니다.
-4. 글과 이미지·링크를 공개 관점에서 검토합니다. 사내 사례는 일반화한 새 글로 작성하며 비공개 자료를 Public 저장소에 복사하지 않습니다.
-5. 발행할 날짜를 넣고 `draft: false`로 바꾼 뒤 `npm run verify`와 `npm run preview`로 본문·모바일·테마·태그·연재·검색·RSS를 확인합니다.
-6. 실제 운영을 시작하기 전, 기존 샘플 일곱 편은 `draft: true`로 전환하거나 제거합니다. 샘플 ID에 다른 내용의 실제 글을 덮어쓰지 않고 새 글에는 새 ID를 사용합니다. 빈 샘플 시리즈도 함께 정리합니다.
-7. 확인한 글과 갱신된 `docs/`를 함께 커밋·push하여 게시합니다.
-
-## 화면과 경로
-
-| 경로 | 역할 |
-| --- | --- |
-| `/` | 최신 공개 글, 타입별 진입점, 소개 |
-| `/notes/` | 날짜 역순 목록과 타입·태그 탐색 |
-| `/notes/<id>/` | 글 상세, Series 연결, 공개 공유 링크 |
-| `/tags/`, `/tags/<tag>/` | 태그 목록과 태그별 글 |
-| `/series/`, `/series/<id>/` | Series 목록과 순서대로 읽기 |
-| `/search/` | Pagefind 검색 |
-| `/about/` | 작성자와 사이트 소개 |
-| `/rss.xml` | 발행된 공개 글만 포함하는 RSS |
-
-모바일 우선 레이아웃을 적용하고 키보드 탐색·명도 대비·이미지 대체 텍스트를 확인합니다. 글 상세에는 타입, 날짜, 태그, Series를 표시합니다. 검색과 RSS에는 공개된 글만 들어갑니다.
-
-## 파일 구조
-
-```text
-src/
-  content/notes/          공개 글 Markdown
-  content/series/         Series 메타데이터
-  content.config.ts       콘텐츠 스키마
-  lib/                    ID·참조 검증, 목록 정렬, 경로
-  components/             카드, 배지, 탐색, 테마 전환
-  layouts/                공통 화면과 글 레이아웃
-  pages/                  위 경로의 정적 페이지와 rss.xml
-src/content/notes/assets/<id>/  글별 공개 이미지
-tests/                    콘텐츠 계약과 경로 검증
-package.json              로컬 빌드·검증·Pages 게시 명령
-```
-
-## 구현 순서와 확인 방법
-
-1. Astro 프로젝트와 콘텐츠 스키마를 만들고 샘플 공개 글로 `id`·날짜·타입·Series 검증을 확인합니다.
-2. 목록·상세·태그·Series·About을 구현하고 고정 URL과 draft 제외를 확인합니다.
-3. 반응형 화면, 다크 모드, 검색, RSS, SEO·Open Graph를 연결합니다.
-4. 로컬에서 빌드·검증하고 `docs/`를 생성하고 `main` 브랜치의 `/docs`에서 제공하도록 설정합니다. Public 저장소 단독 checkout에서 빌드가 성공하는지 확인합니다.
-5. 소스·로컬 배포 설정·빌드 산출물의 콘텐츠·이미지·링크에 공개 불가 정보가 없는지 검토합니다.
-
-완료 기준은 공개 글 하나가 목록·상세·태그·검색·RSS에 일관되게 나타나고, draft는 어떤 공개 산출물에도 나타나지 않으며, 이 저장소만으로 빌드가 통과하는 것입니다.
-
-비공개 경험을 공개 글로 쓰려면 이 저장소에서 새로 작성하고 본문·front matter·이미지·파일명·링크·Git 기록을 사람이 검토합니다. 비공개 자료를 자동 변환해 게시하는 기능은 추가하지 않습니다.
-
-## 로컬 실행과 게시
-
-Node.js 22 이상에서 실행합니다. 기본 배포 주소는 `https://dev-team-404.github.io/ax-notes-public/`로 설정되어 있습니다.
+Node.js 22.19 이상 또는 Node.js 24 LTS를 권장합니다. 기존 lockfile을 사용합니다.
 
 ```bash
 npm ci
-npm run dev       # 로컬 개발 서버
-npm run verify    # 타입 검사 → 정적 빌드·Pagefind → 테스트
-npm run preview   # 빌드 산출물 확인
-npm run deploy    # 선택: verify 후 docs/를 기존 gh-pages 브랜치 루트에 게시
+npm run dev
+npm run verify
+npm run preview
 ```
 
-도메인을 바꾸면 빌드 전에 `SITE_URL`과 `BASE_PATH`를 설정합니다. `SITE_URL`은 사이트 원점(예: `https://example.com`), `BASE_PATH`는 경로 접두사(예: `/ax-notes-public` 또는 `/`)입니다. 로컬 게시 방식은 GitHub 저장소 **Settings → Pages → Deploy from a branch → main → /docs**입니다. `docs/`는 Git에서 제외하지 않으며 `npm run verify` 후 소스 변경과 함께 커밋·push할 수 있습니다. `.nojekyll`도 산출물에 포함하여 `_astro/` 정적 자산을 그대로 제공합니다. 기존 `gh-pages` 브랜치 방식이 필요하면 `npm run deploy`를 사용하고 게시 원본을 `gh-pages` / `/ (root)`로 지정합니다.
+verify는 Astro 타입 검사 → 정적 빌드 → Pagefind → Vitest 순서입니다. 검색·RSS·canonical·OG·Dark Mode·하위 경로를 유지합니다. SITE_URL과 BASE_PATH로 도메인과 경로를 설정하며 기본 주소는 https://dev-team-404.github.io/ax-notes-public/입니다.
 
-## dev-team-404에서 msaltnet으로 동기화
+## GitHub Pages
 
-`dev-team-404/ax-notes-public`의 `main`에 push하면 [동기화 워크플로](.github/workflows/sync-to-msaltnet.yml)가 `msaltnet/ax-notes-public`의 `main`에 사이트 파일을 반영합니다. 대상 저장소의 `.github/`는 보존하므로 기존 배포 Action을 덮어쓰지 않습니다. 대상의 `docs/`도 보존하며, 대상 Action이 빌드 산출물을 생성합니다. 원본과 대상이 같으면 커밋을 만들지 않고 종료하며, 대상 브랜치가 먼저 변경되어 push가 거절되면 강제 push하지 않고 실패합니다.
+.github/workflows/pages.yml은 PR에서 검증만 하고 main push 또는 수동 dispatch에서 검증한 dist를 GitHub Pages에 배포합니다. Node 24를 사용합니다. Pages source를 GitHub Actions로 설정하세요. 코드 변경만으로 실제 배포가 완료되지는 않습니다.
 
-동기화를 켜려면 `msaltnet` 계정에서 fine-grained personal access token을 만들고 다음과 같이 설정합니다.
+기존 npm run deploy는 수동 gh-pages 게시용으로 남아 있습니다. Actions 운영 시에는 워크플로를 기준으로 게시하고 별도로 수동 게시하지 않습니다. Analytics는 공급자 확정 후 추가하며 내부 endpoint나 credential은 Public에 두지 않습니다.
 
-1. **Resource owner**: `msaltnet`, **Repository access**: `Only select repositories` → `ax-notes-public`.
-2. **Repository permissions**: `Contents` → `Read and write`. `Metadata: Read`는 자동으로 포함됩니다. 대상 `.github/`를 수정하지 않으므로 `Workflows` 권한은 필요하지 않습니다.
-3. 토큰을 **dev-team-404/ax-notes-public → Settings → Secrets and variables → Actions → New repository secret**에 `PUBLIC_SYNC_TOKEN`으로 등록합니다. 토큰 값은 Git 파일에 넣지 않습니다.
-
-그다음 원본 저장소의 `main`에 push하거나 워크플로를 수동 실행하여 동기화를 확인합니다. 대상 저장소의 빌드·배포 Action은 토큰으로 만들어진 push에서 실행됩니다. 토큰이 만료되면 Secret을 갱신해야 합니다.
-
-현재 구현에는 일곱 개의 샘플 글, 두 개의 샘플 Series(`field-notes`, `working-with-agents`), 공개 글 검색·RSS·사이트맵·Open Graph·다크 모드가 포함됩니다. Analytics 공급자, 실제 도메인, X·Threads 프로필 주소는 아직 정하지 않았으므로 추적 코드와 프로필 링크는 넣지 않았습니다.
+Public / Inside / Both는 편집 선택입니다. Both 원고는 공개 가능한 내용으로 작성하여 사람이 양쪽에 각각 발행합니다. 자동 동기화·overlay는 없습니다. Inside 경험을 외부에 쓰려면 이 저장소에서 Public 글을 새로 작성합니다.

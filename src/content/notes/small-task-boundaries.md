@@ -3,10 +3,9 @@ id: small-task-boundaries
 title: "할 일을 작게 나누니 질문이 선명해졌다"
 description: "막연한 개선 요청을 확인할 수 있는 한 번의 작업으로 바꾸는 연습."
 date: "2026-09-22"
-type: story
 tags: [Agent, AI Coding, Workflow]
-series: working-with-agents
-series_order: 1
+collection: working-with-agents
+collection_order: 1
 ---
 
 이 글은 연재 화면을 확인하기 위한 **샘플 글**입니다. 아래 작업 상황은 가상의 예시입니다.

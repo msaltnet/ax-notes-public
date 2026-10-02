@@ -1,17 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NoteRow from '../../components/NoteRow.astro';
-import { getSiteContent, type Note, type Series } from '../../lib/data';
-
+import { getSiteContent, projectStatus, type Note, type Series } from '../../lib/data';
+import { href } from '../../lib/links';
 interface Props { series: Series; notes: Note[] }
 export async function getStaticPaths() {
   const { notes, series } = await getSiteContent();
-  return series.map((item) => ({ params: { id: item.id }, props: { series: item, notes: notes.filter((note) => note.data.series === item.id).sort((a, b) => (a.data.series_order ?? 0) - (b.data.series_order ?? 0)) } }));
+  return series.map((item) => ({ params: { id: item.id }, props: { series: item, notes: notes.filter((note) => note.data.collection === item.id).sort((a, b) => (a.data.collection_order ?? 0) - (b.data.collection_order ?? 0)) } }));
 }
 const { series, notes } = Astro.props;
 ---
-
 <BaseLayout title={series.data.title} description={series.data.description}>
-  <div class="page-heading container"><span class="eyebrow">SERIES / {String(notes.length).padStart(2, '0')} NOTES</span><h1>{series.data.title}</h1><p>{series.data.description}</p></div>
-  <div class="page-content container"><div class="list-rows">{notes.map((note) => <NoteRow note={note} />)}</div></div>
+  <div class="page-heading container"><span class="eyebrow">{series.data.type.toUpperCase()} / {notes.length} NOTES</span><h1>{series.data.title}</h1><p>{series.data.description}</p></div>
+  <div class="page-content container">
+    {series.data.type === 'project' && <section class="project-summary" aria-label="프로젝트 진행 상태"><span class="eyebrow">GOAL</span><p>{series.data.goal}</p><p class="project-state">{projectStatus[series.data.status]} · {notes.length}{series.data.planned_notes ? ` / ${series.data.planned_notes}` : ''} Notes</p>{series.data.planned_notes && <progress value={Math.min(notes.length, series.data.planned_notes)} max={series.data.planned_notes} aria-label="발행한 Note 진행률" />}{series.data.result && <p><a class="text-link" href={href(series.data.result)}>결과물 사용하기 ↗</a></p>}</section>}
+    <div class="list-rows">{notes.map((note) => <NoteRow note={note} />)}</div>
+    {notes.length === 0 && <p>아직 발행된 Note가 없습니다.</p>}
+  </div>
 </BaseLayout>

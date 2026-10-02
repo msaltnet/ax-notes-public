@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { href, seriesHref } from '../../lib/links';
+---
+<BaseLayout title="Labs" description="직접 사용하고 결과를 가져갈 수 있는 작은 AX 도구">
+  <div class="page-heading container"><span class="eyebrow">LABS / USE WHAT WE BUILD</span><h1>생각을 도구로.</h1><p>작지만 실제로 쓸 수 있는 AX 도구. 입력하고, 정리하고, 결과를 가져가세요.</p></div>
+  <div class="page-content container">
+    <section class="series-card"><span class="eyebrow">AVAILABLE / CLIENT-SIDE</span><h2>Context Builder</h2><p>AI가 내 업무를 이해할 수 있도록 역할, 목표, 반복 업무와 판단 기준을 Markdown 문서로 정리합니다.</p><p><a class="text-link" href={href('/labs/context-builder/')}>사용하기 →</a> · <a class="text-link" href={seriesHref('context-builder')}>만드는 과정 ↗</a></p></section>
+    <h2>다음 실험 후보</h2><p>아래 도구는 아이디어 단계입니다. 아직 제공하지 않습니다.</p>
+    <div class="lab-ideas"><div><h3>AX Work Mapper</h3><p>반복성·정형성·판단·데이터·시스템 연동을 살펴 업무에서 AI를 시작할 지점을 찾습니다.</p></div><div><h3>Agent Readiness Check</h3><p>Prompt, Workflow, Agent 중 어떤 접근이 필요한지 생각해봅니다.</p></div><div><h3>Agent Design Canvas</h3><p>Goal, Context, Memory, Tools, Skills, Human Approval, Output을 구조화합니다.</p></div></div>
+  </div>
+</BaseLayout>
