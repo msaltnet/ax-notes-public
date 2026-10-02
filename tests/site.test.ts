@@ -9,6 +9,17 @@ const publicPath = (path: string) => `${base}${path}`;
 const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://ax.msalt.net').href;
 
 describe('built public site', () => {
+  it('includes the GA4 tag on every page', () => {
+    const pages = readdirSync(output(''), { recursive: true })
+      .filter((path): path is string => typeof path === 'string' && path.endsWith('.html'));
+    expect(pages.length).toBeGreaterThan(0);
+    for (const page of pages) {
+      const content = html(page);
+      expect(content, page).toContain('https://www.googletagmanager.com/gtag/js?id=G-3WQGHP4S0L');
+      expect(content, page).toContain("gtag('config', 'G-3WQGHP4S0L')");
+    }
+  });
+
   it('serves every local link and asset from the configured mount point', () => {
     const pages = readdirSync(output(''), { recursive: true })
       .filter((path): path is string => typeof path === 'string' && path.endsWith('.html'));
