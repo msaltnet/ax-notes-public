@@ -6,8 +6,7 @@ interface Props { note: Note }
 const { note } = Astro.props;
 ---
 
-<a class="list-row" href={noteHref(note.id)} data-note-type={note.data.type}>
-  <span class="row-type">{note.data.type.toUpperCase()}</span>
+<a class="list-row" href={noteHref(note.id)}>
   <div><h2>{note.data.title}</h2><p>{note.data.description}</p></div>
   <time class="row-date" datetime={note.data.date}>{note.data.date}</time>
   <span class="row-arrow" aria-hidden="true">↗</span>

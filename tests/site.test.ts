@@ -13,7 +13,7 @@ describe('built public site', () => {
     const home = html('index.html');
     expect(home).toContain('AX Notes');
     expect(home).toContain(publicPath('/notes/first-agent/'));
-    expect(home).toContain(publicPath('/notes/better-prompts/'));
+    expect(html('notes/index.html')).toContain(publicPath('/notes/better-prompts/'));
     expect(html('notes/first-agent/index.html')).toContain('첫 번째 Agent를 만들며');
   });
 
@@ -50,5 +50,21 @@ describe('built public site', () => {
     expect(search).toContain(`src="${publicPath('/search.js')}"`);
     expect(search).not.toContain('__VITE_PRELOAD__');
     expect(existsSync(dist('search.js'))).toBe(true);
+  });
+});
+
+describe('restored branding and content', () => {
+  it('restores the AX monogram and the original moon/sun controls', () => {
+    const home = html('index.html');
+    expect(home).toContain('/ax-monogram.svg');
+    expect(home).toContain('theme-icon-moon');
+    expect(home).toContain('theme-icon-sun');
+    expect(home).toContain('hero-intro');
+    expect(home).toContain('일이 달라지는');
+  });
+  it('preserves the articles and series added after the pinned submodule commit', () => {
+    expect(html('notes/context-handoff/index.html')).toContain('Agent에게 건네는 작업 메모 네 줄');
+    expect(existsSync(dist('notes/free-cloud-compute-for-agents/index.html'))).toBe(true);
+    expect(html('series/working-with-agents/index.html')).toContain('Agent와 일하는 연습');
   });
 });

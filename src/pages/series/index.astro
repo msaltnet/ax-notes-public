@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getSiteContent } from '../../lib/data';
+import { getSiteContent, projectStatus } from '../../lib/data';
 import { seriesHref } from '../../lib/links';
-
 const { notes, series } = await getSiteContent();
 ---
-
-<BaseLayout title="Series" description="순서대로 이어 읽는 AX Notes 연재">
-  <div class="page-heading container"><span class="eyebrow">COLLECTIONS / {String(series.length).padStart(2, '0')}</span><h1>이어 읽기</h1><p>하나의 질문을 여러 편에 걸쳐 살펴봅니다.</p></div>
-  <div class="page-content container">{series.map((item) => <a class="series-card" href={seriesHref(item.id)}><span class="eyebrow">SERIES / {String(notes.filter((note) => note.data.series === item.id).length).padStart(2, '0')} NOTES</span><h2>{item.data.title}</h2><p>{item.data.description}</p><span class="text-link">연재 읽기 ↗</span></a>)}</div>
+<BaseLayout title="Series" description="주제를 탐구하는 Series와 실제 결과물을 만드는 Project">
+  <div class="page-heading container"><span class="eyebrow">COLLECTIONS / {String(series.length).padStart(2, '0')}</span><h1>이어 읽고,<br />직접 만들어봅니다.</h1><p>계속 궁금하면 Series, 목표와 결과물을 향해 움직이면 Project.</p></div>
+  <div class="page-content container">{series.map((item) => {
+    const count = notes.filter((note) => note.data.collection === item.id).length;
+    return <a class="series-card" href={seriesHref(item.id)}><span class="eyebrow">{item.data.type.toUpperCase()} / {count} NOTES</span><h2>{item.data.title}</h2><p>{item.data.description}</p>{item.data.type === 'project' && <p class="project-state">{projectStatus[item.data.status]} · {count}{item.data.planned_notes ? ` / ${item.data.planned_notes}` : ''} Notes</p>}<span class="text-link">기록 읽기 ↗</span></a>;
+  })}</div>
 </BaseLayout>

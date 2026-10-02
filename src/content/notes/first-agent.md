@@ -3,10 +3,10 @@ id: first-agent
 title: "첫 번째 Agent를 만들며 배운 것"
 description: "작은 반복 업무 하나를 Agent로 옮기며 발견한 설계 질문들."
 date: "2026-09-27"
-type: story
+aftertaste: "좋은 Agent보다 먼저 좋은 업무 정의가 필요했다."
 tags: [Agent, AX]
-series: field-notes
-series_order: 1
+collection: field-notes
+collection_order: 1
 ---
 
 이 글은 AX Notes의 화면과 콘텐츠 흐름을 확인하기 위한 **샘플 글**입니다. 실제 조직이나 프로젝트의 경험을 설명하지 않습니다.
