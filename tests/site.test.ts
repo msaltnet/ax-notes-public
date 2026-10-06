@@ -12,7 +12,8 @@ describe('built public site', () => {
   it('publishes both sample notes with stable routes and navigation', () => {
     const home = html('index.html');
     expect(home).toContain('AX Notes');
-    expect(home).toContain(publicPath('/notes/first-agent/'));
+    expect(home).toContain(publicPath('/notes/'));
+    expect(html('notes/index.html')).toContain(publicPath('/notes/first-agent/'));
     expect(html('notes/index.html')).toContain(publicPath('/notes/better-prompts/'));
     expect(html('notes/first-agent/index.html')).toContain('첫 번째 Agent를 만들며');
   });
