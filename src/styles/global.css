@@ -5,6 +5,7 @@
 @import '@fontsource/ibm-plex-sans-kr/latin-600.css';
 @import '@fontsource/noto-serif-kr/korean-600.css';
 @import '@fontsource/noto-serif-kr/latin-600.css';
+@import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 
 :root {
   color-scheme: light;
@@ -119,7 +120,7 @@ main { min-height: 64vh; }
 .article-header .lede { max-width: 650px; color: var(--muted); font-size: 1.1rem; word-break: keep-all; }
 .article-meta { display: flex; flex-wrap: wrap; gap: .9rem; align-items: center; margin-top: 2.4rem; color: var(--muted); font-size: .75rem; font-weight: 600; }
 .article-layout { display: grid; grid-template-columns: minmax(0, 760px) minmax(160px, 1fr); gap: clamp(3rem, 8vw, 10rem); padding-top: 4rem; padding-bottom: 7rem; }
-.article-body { font-size: 1.03rem; line-height: 2; word-break: keep-all; }
+.article-body { font-family: 'Pretendard Variable', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-size: 1.0625rem; line-height: 1.85; word-break: keep-all; }
 .article-body > :first-child { margin-top: 0; }
 .article-body h2, .article-body h3 { font-family: var(--font-display); letter-spacing: -.06em; line-height: 1.4; }
 .article-body h2 { margin: 3.3rem 0 1rem; font-size: 1.75rem; }
