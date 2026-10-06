@@ -8,28 +8,27 @@ import { tagSlug } from '../../lib/paths';
 interface Props { note: Note; series?: Series }
 export async function getStaticPaths() {
   const { notes, series } = await getSiteContent();
-  return notes.map((note) => ({ params: { id: note.id }, props: { note, series: series.find((entry) => entry.id === note.data.series) } }));
+  return notes.map((note) => ({ params: { id: note.id }, props: { note, series: series.find((entry) => entry.id === note.data.collection) } }));
 }
 const { note, series } = Astro.props;
 const { Content } = await render(note);
-const typeName = { story: 'STORY', tip: 'TIP', take: 'TAKE' }[note.data.type];
 const xShare = `https://twitter.com/intent/tweet?${new URLSearchParams({ text: note.data.title, url: Astro.url.href })}`;
 const threadsShare = `https://www.threads.com/intent/post?${new URLSearchParams({ text: `${note.data.title} ${Astro.url.href}` })}`;
 ---
 
 <BaseLayout title={note.data.title} description={note.data.description} pageType="article">
   <header class="article-header container">
-    <span class="eyebrow">AX NOTES / {typeName}</span>
+    <span class="eyebrow">AX NOTES</span>
     <h1 data-pagefind-body>{note.data.title}</h1>
     <p class="lede">{note.data.description}</p>
-    <div class="article-meta"><span class="type-label">{typeName}</span><time datetime={note.data.date}>{note.data.date}</time><span>·</span><span>{note.data.tags.join(' / ')}</span></div>
+    <div class="article-meta"><time datetime={note.data.date}>{note.data.date}</time><span>·</span><span>{note.data.tags.join(' / ')}</span></div>
   </header>
   <div class="article-layout container">
-    <article class="article-body" data-pagefind-body><Content /></article>
+    <article class="article-body" data-pagefind-body><Content />{note.data.aftertaste && <aside class="aftertaste"><span class="eyebrow">Aftertaste</span><p>{note.data.aftertaste}</p></aside>}</article>
     <aside class="article-side" aria-label="글 정보">
       <span class="side-label">FILED UNDER</span>
       {note.data.tags.map((tag) => <a href={tagHref(tagSlug(tag))}># {tag} ↗</a>)}
-      {series && <><div class="side-divider"></div><span class="side-label">SERIES / {note.data.series_order?.toString().padStart(2, '0')}</span><a href={seriesHref(series.id)}>{series.data.title} ↗</a></>}
+      {series && <><div class="side-divider"></div><span class="side-label">{series.data.type.toUpperCase()} / {note.data.collection_order?.toString().padStart(2, '0')}</span><a href={seriesHref(series.id)}>{series.data.title} ↗</a></>}
       <div class="side-divider"></div><span class="side-label">SHARE PUBLIC NOTE</span>
       <a href={xShare} target="_blank" rel="noopener noreferrer">X에 공유 ↗</a>
       <a href={threadsShare} target="_blank" rel="noopener noreferrer">Threads에 공유 ↗</a>

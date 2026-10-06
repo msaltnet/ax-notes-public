@@ -3,10 +3,9 @@ id: context-handoff
 title: "Agent에게 건네는 작업 메모 네 줄"
 description: "목표, 참고 자료, 제약, 완료 기준으로 맥락을 짧게 정리하는 샘플 팁."
 date: "2026-09-23"
-type: tip
 tags: [Agent, AI Coding, Workflow]
-series: working-with-agents
-series_order: 2
+collection: working-with-agents
+collection_order: 2
 ---
 
 이 글은 화면과 연재 탐색을 확인하기 위한 **샘플 팁**입니다. 실제 도구의 공식 사용 가이드가 아닙니다.

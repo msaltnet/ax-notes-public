@@ -3,10 +3,9 @@ id: definition-of-done
 title: "완료는 코드가 아니라 확인한 결과로 말하기"
 description: "무엇을 바꿨는지와 무엇을 검증했는지를 함께 남겨야 하는 이유."
 date: "2026-09-25"
-type: take
 tags: [AI Coding, Workflow, Review]
-series: working-with-agents
-series_order: 3
+collection: working-with-agents
+collection_order: 3
 ---
 
 이 글은 유형별 화면과 연재를 확인하기 위한 **샘플 의견 글**입니다. 특정 팀의 운영 원칙이나 실제 사례를 소개하지 않습니다.
