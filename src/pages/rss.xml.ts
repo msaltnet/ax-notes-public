@@ -6,8 +6,8 @@ export async function GET(context: { site: URL | undefined }) {
   const { notes } = await getSiteContent();
   return rss({
     title: 'AX Notes',
-    description: '일과 기술의 변화를 직접 만들고 기록하는 작은 노트.',
-    site: new URL(import.meta.env.BASE_URL, context.site ?? new URL('https://ax.msalt.net')),
+    description: 'AI로 일하는 방식을 바꾸며 배우고 생각한 것들.',
+    site: new URL(import.meta.env.BASE_URL, context.site ?? new URL('https://dev-team-404.github.io')),
     items: notes.map((note) => ({
       title: note.data.title,
       description: note.data.description,

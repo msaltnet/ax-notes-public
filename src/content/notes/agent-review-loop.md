@@ -3,10 +3,9 @@ id: agent-review-loop
 title: "Agent의 초안을 검토하는 작은 루프"
 description: "요약이 그럴듯한지보다 원문과 연결되는지부터 확인하는 실험."
 date: "2026-09-28"
-type: story
 tags: [Agent, AX, Review]
-series: field-notes
-series_order: 3
+collection: field-notes
+collection_order: 3
 ---
 
 이 글은 화면과 콘텐츠 흐름을 확인하기 위한 **샘플 글**입니다. 실제 조직이나 프로젝트의 경험을 설명하지 않습니다.

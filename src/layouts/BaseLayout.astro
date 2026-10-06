@@ -14,7 +14,7 @@ const current = Astro.url.pathname;
 const nav = [
   { label: 'Notes', path: '/notes/' },
   { label: 'Series', path: '/series/' },
-  { label: 'Tags', path: '/tags/' },
+  { label: 'Labs', path: '/labs/' },
   { label: 'About', path: '/about/' },
 ];
 ---
@@ -24,7 +24,7 @@ const nav = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f3f0e7" />
+    <meta name="theme-color" content="#faf7f8" />
     <meta name="description" content={description} />
     <meta property="og:type" content={pageType} />
     <meta property="og:site_name" content="AX Notes" />
@@ -41,14 +41,6 @@ const nav = [
     <link rel="icon" href={href('/favicon-ax-32.png')} type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href={href('/favicon-ax-180.png')} sizes="180x180" />
     <title>{fullTitle}</title>
-    <!-- Google tag (gtag.js) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3WQGHP4S0L"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3WQGHP4S0L');
-    </script>
     <script is:inline>
       try { document.documentElement.dataset.theme = localStorage.getItem('ax-theme') || 'light'; } catch { /* private browsing */ }
     </script>

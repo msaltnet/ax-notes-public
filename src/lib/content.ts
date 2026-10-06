@@ -6,15 +6,15 @@ export type NoteRecord = {
     id: string;
     title: string;
     date: string;
-    type: 'story' | 'tip' | 'take';
+
     draft?: boolean;
-    series?: string;
-    series_order?: number;
+    collection?: string;
+    collection_order?: number;
   };
 };
 
-export function assertContentIntegrity(notes: NoteRecord[], seriesIds: string[]): void {
-  const knownSeries = new Set(seriesIds);
+export function assertContentIntegrity(notes: NoteRecord[], collectionIds: string[]): void {
+  const knownCollection = new Set(collectionIds);
   const seenNotes = new Set<string>();
   const seenPositions = new Set<string>();
 
@@ -23,15 +23,15 @@ export function assertContentIntegrity(notes: NoteRecord[], seriesIds: string[])
     seenNotes.add(note.id);
     if (note.id !== note.data.id) throw new Error(`File ID ${note.id} differs from front matter ID ${note.data.id}`);
 
-    const { series, series_order: order } = note.data;
-    if (series && !knownSeries.has(series)) throw new Error(`Unknown series: ${series}`);
-    if (series && (!Number.isInteger(order) || (order ?? 0) < 1)) {
-      throw new Error(`series_order must be a positive integer for ${note.id}`);
+    const { collection, collection_order: order } = note.data;
+    if (collection && !knownCollection.has(collection)) throw new Error(`Unknown collection: ${collection}`);
+    if (collection && (!Number.isInteger(order) || (order ?? 0) < 1)) {
+      throw new Error(`collection_order must be a positive integer for ${note.id}`);
     }
-    if (!series && order !== undefined) throw new Error(`series_order requires series for ${note.id}`);
-    if (series) {
-      const key = `${series}:${order}`;
-      if (seenPositions.has(key)) throw new Error(`Duplicate series order: ${key}`);
+    if (!collection && order !== undefined) throw new Error(`collection_order requires collection for ${note.id}`);
+    if (collection) {
+      const key = `${collection}:${order}`;
+      if (seenPositions.has(key)) throw new Error(`Duplicate collection order: ${key}`);
       seenPositions.add(key);
     }
   }

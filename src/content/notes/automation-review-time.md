@@ -3,7 +3,6 @@ id: automation-review-time
 title: "자동화가 줄인 시간, 검토가 늘린 시간"
 description: "초안 작성 속도만으로는 보이지 않는 자동화의 비용을 생각해 봅니다."
 date: "2026-09-26"
-type: take
 tags: [AX, Automation, Review]
 ---
 

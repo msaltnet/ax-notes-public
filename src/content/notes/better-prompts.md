@@ -3,10 +3,10 @@ id: better-prompts
 title: "프롬프트를 고치기 전에 입력부터 정리하기"
 description: "결과가 흔들릴 때 확인해 볼 입력 정리 습관 세 가지."
 date: "2026-09-24"
-type: tip
+aftertaste: "프롬프트를 고치기 전에, 무엇을 주고 있는지부터 살펴본다."
 tags: [Agent, AI Coding]
-series: field-notes
-series_order: 2
+collection: field-notes
+collection_order: 2
 ---
 
 이 글은 사이트 동작을 확인하기 위한 **샘플 팁**입니다. 실제 도구 사용 가이드가 아닙니다.
