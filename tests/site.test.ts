@@ -9,6 +9,16 @@ const publicPath = (path: string) => `${base}${path}`;
 const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://ax.msalt.net').href;
 
 describe('built public site', () => {
+  it('makes article tables keyboard-accessible without losing their headers or cells', () => {
+    for (const path of ['notes/agent-review-loop/index.html', 'notes/automation-review-time/index.html']) {
+      const article = html(path);
+      expect(article).toMatch(/<div class="article-table" tabindex="0" role="region" aria-label="본문 표">\s*<table>/);
+      expect(article).toMatch(/<thead>[\s\S]*?<th>[\s\S]*?<\/thead>/);
+      expect(article).toMatch(/<tbody>[\s\S]*?<td>[\s\S]*?<\/tbody><\/table><\/div>/);
+    }
+    expect(html('notes/agent-review-loop/index.html')).toContain('인용한 부분이 요약을 뒷받침하는가');
+  });
+
   it('serves every local link and asset from the configured mount point', () => {
     const pages = readdirSync(output(''), { recursive: true })
       .filter((path): path is string => typeof path === 'string' && path.endsWith('.html'));
