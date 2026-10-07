@@ -316,7 +316,7 @@ html[data-theme='dark'] .theme-icon-sun { display: block; }
   .list-row { grid-template-columns: 1fr auto; }
 }
 /* Notes, Projects and browser Labs share the existing editorial palette. */
-.home-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; padding-block: 3rem; border-block: 1px solid var(--line); }
+.home-panels { display: grid; grid-template-columns: 1fr; gap: 3rem; padding-block: 3rem; border-block: 1px solid var(--line); }
 .home-panel h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.05em; }
 .home-panel p { color: var(--muted); line-height: 1.8; }
 .project-state, .lab-status { color: var(--forest); font-size: .85rem; font-weight: 600; }

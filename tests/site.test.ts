@@ -10,13 +10,12 @@ const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://msaltnet.g
 
 describe('built public site', () => {
   it('makes article tables keyboard-accessible without losing their headers or cells', () => {
-    for (const path of ['notes/agent-review-loop/index.html', 'notes/automation-review-time/index.html']) {
+    for (const path of ['notes/free-llm-apis/index.html']) {
       const article = html(path);
       expect(article).toMatch(/<div class="article-table" tabindex="0" role="region" aria-label="본문 표">\s*<table>/);
       expect(article).toMatch(/<thead>[\s\S]*?<th>[\s\S]*?<\/thead>/);
       expect(article).toMatch(/<tbody>[\s\S]*?<td>[\s\S]*?<\/tbody><\/table><\/div>/);
     }
-    expect(html('notes/agent-review-loop/index.html')).toContain('인용한 부분이 요약을 뒷받침하는가');
   });
 
   it('serves every local link and asset from the configured mount point', () => {
@@ -42,25 +41,25 @@ describe('built public site', () => {
     expect(html('sitemap-0.xml')).toContain(`<loc>${siteRoot}</loc>`);
   });
 
-  it('publishes both sample notes with stable routes and navigation', () => {
+  it('publishes authored notes with stable routes and navigation', () => {
     const home = html('index.html');
     expect(home).toContain('AX Notes');
     expect(home).toContain(publicPath('/notes/'));
-    expect(html('notes/index.html')).toContain(publicPath('/notes/first-agent/'));
-    expect(html('notes/index.html')).toContain(publicPath('/notes/better-prompts/'));
-    expect(html('notes/first-agent/index.html')).toContain('첫 번째 Agent를 만들며');
+    expect(html('notes/index.html')).toContain(publicPath('/notes/nanobot-bot-selection/'));
+    expect(html('notes/index.html')).toContain(publicPath('/notes/free-llm-apis/'));
+    expect(html('notes/nanobot-bot-selection/index.html')).toContain('나의 작은 에이전트 nanobot');
   });
 
   it('builds tag, series, search and RSS output', () => {
     expect(existsSync(dist('tags/agent/index.html'))).toBe(true);
-    expect(existsSync(dist('series/field-notes/index.html'))).toBe(true);
+    expect(existsSync(dist('series/nanobot/index.html'))).toBe(true);
     expect(existsSync(dist('pagefind/pagefind.js'))).toBe(true);
-    expect(html('rss.xml')).toContain('first-agent');
+    expect(html('rss.xml')).toContain('nanobot-bot-selection');
     expect(html('rss.xml')).toContain(`<link>${siteRoot}</link>`);
   });
 
   it('indexes article titles and offers public share links', () => {
-    const article = html('notes/first-agent/index.html');
+    const article = html('notes/nanobot-bot-selection/index.html');
     expect(article).toMatch(/<h1 data-pagefind-body>/);
     expect(article).toContain('twitter.com/intent/tweet');
     expect(article).toContain('threads.com/intent/post');
@@ -72,8 +71,8 @@ describe('built public site', () => {
   });
 
   it('keeps article images within the Pages base path', () => {
-    const article = html('notes/first-agent/index.html');
-    const image = article.match(/src="([^"]*\/_astro\/diagram\.[^"]+\.(?:png|webp))"/);
+    const article = html('notes/nanobot-bot-selection/index.html');
+    const image = article.match(/src="([^"]*\/_astro\/bot-comparison\.[^"]+\.(?:png|webp))"/);
     expect(image).not.toBeNull();
     expect(image![1]).toContain(publicPath('/_astro/'));
     expect(existsSync(dist(image![1].slice(base.length).replace(/^\//, '')))).toBe(true);
@@ -97,8 +96,8 @@ describe('restored branding and content', () => {
     expect(home).toContain('일이 달라지는');
   });
   it('preserves the articles and series added after the pinned submodule commit', () => {
-    expect(html('notes/context-handoff/index.html')).toContain('Agent에게 건네는 작업 메모 네 줄');
+    expect(html('notes/ax-notes-app-requirements-first/index.html')).toContain('AX Notes 앱도 만들어볼까?');
     expect(existsSync(dist('notes/free-cloud-compute-for-agents/index.html'))).toBe(true);
-    expect(html('series/working-with-agents/index.html')).toContain('Agent와 일하는 연습');
+    expect(html('series/nanobot/index.html')).toContain('나의 작은 에이전트 nanobot');
   });
 });

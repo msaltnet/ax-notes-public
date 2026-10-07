@@ -16,11 +16,11 @@ Collection은 src/content/collections/<id>.md에 둡니다. id·title·descripti
 
 Project와 Series의 대표 이미지는 cover_image에 Markdown 파일 기준 상대 경로로 지정하고 cover_alt에 이미지 설명을 적습니다. Project는 홈의 프로젝트 소개, Projects 목록 카드, 프로젝트 상세 상단에 표시합니다. Series는 목록 카드에 표시하며, 이미지가 없으면 연재 번호를 사용합니다. 목록 카드는 큰 화면에서 왼쪽 260px 이미지와 오른쪽 설명을 배치하고 작은 화면에서는 세로로 표시합니다. 이미지는 원래 비율을 유지하며 빌드에서 최적화합니다.
 
-기존 first-agent와 better-prompts는 화면 검증용 샘플입니다. Context Builder는 Labs에서 사용할 수 있는 도구입니다.
+화면 검증용 샘플 글과 샘플 연재는 삭제했습니다. Labs는 준비될 때까지 공개 경로·메뉴·홈·About에서 숨깁니다. Context Builder 페이지는 src/disabled-pages/labs, 관련 글과 Project는 src/disabled-content에 보관하며 빌드에 포함하지 않습니다.
 
 ## 화면과 Labs
 
-메뉴는 Notes · Series · Projects · Labs · About · Search입니다. Series는 연재만, Projects는 프로젝트만 보여줍니다. 프로젝트 목록은 /projects/이며 기존 Collection 상세 주소 /series/<id>/는 유지합니다. 태그는 Notes와 글 상세에서 접근합니다. 홈은 Hero → Featured Note → Projects → From the Lab → Latest Notes 순서입니다.
+메뉴는 Notes · Series · Projects · About · Search입니다. Series는 연재만, Projects는 프로젝트만 보여줍니다. 프로젝트 목록은 /projects/이며 기존 Collection 상세 주소 /series/<id>/는 유지합니다. 태그는 Notes와 글 상세에서 접근합니다. 홈은 Hero → Featured Note → Projects → Latest Notes 순서입니다.
 
 Labs는 콘텐츠 Collection이 아니라 실제 도구입니다. 첫 Lab은 Context Builder입니다. Role·Goals·Recurring Tasks·Decision Criteria·Tools·Output Preferences를 Markdown으로 정리하고 복사·다운로드합니다. 입력은 브라우저에서만 처리하고 서버 전송·자동 저장하지 않습니다.
 
