@@ -50,3 +50,9 @@ verify는 Astro 타입 검사 → 정적 빌드 → Pagefind → Vitest 순서�
 Public / Inside / Both는 편집 선택입니다. Both 원고는 공개 가능한 내용으로 작성하여 사람이 양쪽에 각각 발행합니다. 자동 동기화·overlay는 없습니다. Inside 경험을 외부에 쓰려면 이 저장소에서 Public 글을 새로 작성합니다.
 
 Public 저장소는 https://github.com/msaltnet/ax-notes-public 입니다. 이 저장소에서 직접 글과 사이트를 관리하며 이전 저장소의 자동 동기화는 사용하지 않습니다.
+
+## SNS 공유 이미지
+
+글에 본문 이미지가 있으면 첫 번째 이미지의 빌드 URL과 크기를 OG 및 Twitter 공유 메타데이터에 사용합니다. 본문 이미지가 없는 글과 일반 페이지는 public/og.png를 기본 이미지로 사용합니다. 기본 이미지를 바꾸려면 해당 파일을 교체합니다.
+
+현재 기본 이미지는 [ChatGPT에서 만든 AX Notes SNS 이미지](https://chatgpt.com/s/m_6ac62105b0c88191be80abb8df41f04b)의 원본(1731×909)을 사용합니다.

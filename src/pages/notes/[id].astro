@@ -1,5 +1,6 @@
 ---
 import { render } from 'astro:content';
+import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getSiteContent, type Note, type Series } from '../../lib/data';
 import { href, seriesHref, tagHref } from '../../lib/links';
@@ -12,11 +13,22 @@ export async function getStaticPaths() {
 }
 const { note, series } = Astro.props;
 const { Content } = await render(note);
+const container = await AstroContainer.create();
+const bodyHtml = await container.renderToString(Content, { request: Astro.request });
+const firstImage = bodyHtml.match(/<img\b[^>]*>/i)?.[0];
+const imageAttribute = (name: string) => firstImage?.match(new RegExp(`\\b${name}="([^"]*)"`, 'i'))?.[1];
+const imageSrc = imageAttribute('src');
+const shareImage = imageSrc ? {
+  src: new URL(imageSrc.replaceAll('&amp;', '&'), Astro.url).href,
+  width: Number(imageAttribute('width')) || undefined,
+  height: Number(imageAttribute('height')) || undefined,
+  alt: note.data.title,
+} : undefined;
 const xShare = `https://twitter.com/intent/tweet?${new URLSearchParams({ text: note.data.title, url: Astro.url.href })}`;
 const threadsShare = `https://www.threads.com/intent/post?${new URLSearchParams({ text: `${note.data.title} ${Astro.url.href}` })}`;
 ---
 
-<BaseLayout title={note.data.title} description={note.data.description} pageType="article">
+<BaseLayout title={note.data.title} description={note.data.description} pageType="article" shareImage={shareImage}>
   <header class="article-header container">
     <span class="eyebrow">AX NOTES</span>
     <h1 data-pagefind-body>{note.data.title}</h1>
@@ -24,7 +36,7 @@ const threadsShare = `https://www.threads.com/intent/post?${new URLSearchParams(
     <div class="article-meta"><time datetime={note.data.date}>{note.data.date}</time><span>·</span><span>{note.data.tags.join(' / ')}</span></div>
   </header>
   <div class="article-layout container">
-    <article class="article-body" data-pagefind-body><Content />{note.data.aftertaste && <aside class="aftertaste"><span class="eyebrow">Aftertaste</span><p>{note.data.aftertaste}</p></aside>}</article>
+    <article class="article-body" data-pagefind-body><Fragment set:html={bodyHtml} />{note.data.aftertaste && <aside class="aftertaste"><span class="eyebrow">Aftertaste</span><p>{note.data.aftertaste}</p></aside>}</article>
     <aside class="article-side" aria-label="글 정보">
       <span class="side-label">FILED UNDER</span>
       {note.data.tags.map((tag) => <a href={tagHref(tagSlug(tag))}># {tag} ↗</a>)}

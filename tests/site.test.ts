@@ -9,6 +9,26 @@ const publicPath = (path: string) => `${base}${path}`;
 const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://msaltnet.github.io').href;
 
 describe('built public site', () => {
+  it('uses the first body image for sharing and falls back when a note has no image', () => {
+    const pages = readdirSync(dist('notes'), { recursive: true })
+      .filter((path): path is string => typeof path === 'string' && /[\\/]index\.html$/.test(path));
+    let withImage = 0;
+    let withoutImage = 0;
+    for (const page of pages) {
+      const article = html(`notes/${page}`);
+      const body = article.match(/<article class="article-body"[^>]*>([\s\S]*?)<\/article>/)![1];
+      const firstImage = body.match(/<img\b[^>]*\bsrc="([^"]+)"/);
+      const expected = firstImage ? new URL(firstImage[1].replaceAll('&amp;', '&'), `${siteRoot}notes/${page.replaceAll('\\', '/')}`).href : new URL('og.png', siteRoot).href;
+      const og = article.match(/property="og:image" content="([^"]+)"/)![1];
+      const twitter = article.match(/name="twitter:image" content="([^"]+)"/)?.[1];
+      expect(og, page).toBe(expected.replaceAll('&', '&amp;'));
+      expect(twitter, page).toBe(og);
+      if (firstImage) withImage++; else withoutImage++;
+    }
+    expect(withImage).toBeGreaterThan(0);
+    expect(withoutImage).toBeGreaterThan(0);
+  });
+
   it('makes article tables keyboard-accessible without losing their headers or cells', () => {
     for (const path of ['notes/free-llm-apis/index.html']) {
       const article = html(path);

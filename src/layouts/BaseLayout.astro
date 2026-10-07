@@ -2,14 +2,17 @@
 import '../styles/global.css';
 import { href } from '../lib/links';
 
-interface Props { title?: string; description?: string; pageType?: 'website' | 'article' }
+interface Props { title?: string; description?: string; pageType?: 'website' | 'article'; shareImage?: { src: string; width?: number; height?: number; alt: string } }
 const {
   title = 'AX Notes',
   description = '일과 기술의 변화를 직접 만들고 기록하는 작은 노트.',
   pageType = 'website',
+  shareImage,
 } = Astro.props;
 const fullTitle = title === 'AX Notes' ? 'AX Notes — 변화의 현장 기록' : `${title} · AX Notes`;
 const canonical = Astro.url.href;
+const preview = shareImage ?? { src: href('/og.png'), width: 1731, height: 909, alt: 'AX Notes — 악소리 나는 AX 경험담.' };
+const previewUrl = new URL(preview.src, Astro.site ?? Astro.url).href;
 const current = Astro.url.pathname;
 const nav = [
   { label: 'Notes', path: '/notes/' },
@@ -31,10 +34,15 @@ const nav = [
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(href('/og.png'), Astro.site).href} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content={previewUrl} />
+    {preview.width && <meta property="og:image:width" content={String(preview.width)} />}
+    {preview.height && <meta property="og:image:height" content={String(preview.height)} />}
+    <meta property="og:image:alt" content={preview.alt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={previewUrl} />
+    <meta name="twitter:image:alt" content={preview.alt} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" type="application/rss+xml" title="AX Notes RSS" href={href('/rss.xml')} />
     <link rel="icon" href={href('/favicon-ax-16.png')} type="image/png" sizes="16x16" />
