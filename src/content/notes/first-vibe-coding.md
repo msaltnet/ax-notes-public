@@ -6,7 +6,6 @@ date: "2026-10-07"
 tags: [Vibe Coding, Cursor, Agent]
 collection: vibe-coding-workflow
 collection_order: 1
-draft: true
 aftertaste: "시간이 생각보다 천천히 흐르는 것 같아요."
 ---
 

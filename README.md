@@ -16,7 +16,7 @@ Collection은 src/content/collections/<id>.md에 둡니다. id·title·descripti
 
 Project와 Series의 대표 이미지는 cover_image에 Markdown 파일 기준 상대 경로로 지정하고 cover_alt에 이미지 설명을 적습니다. Project는 홈의 프로젝트 소개, Projects 목록 카드, 프로젝트 상세 상단에 표시합니다. Series는 목록 카드에 표시하며, 이미지가 없으면 연재 번호를 사용합니다. 목록 카드는 큰 화면에서 왼쪽 260px 이미지와 오른쪽 설명을 배치하고 작은 화면에서는 세로로 표시합니다. 이미지는 원래 비율을 유지하며 빌드에서 최적화합니다.
 
-화면 검증용 샘플 글과 샘플 연재는 삭제했습니다. Labs는 준비될 때까지 공개 경로·메뉴·홈·About에서 숨깁니다. Context Builder 페이지는 src/disabled-pages/labs, 관련 글과 Project는 src/disabled-content에 보관하며 빌드에 포함하지 않습니다.
+화면 검증용 샘플 글과 샘플 연재는 삭제했습니다. Labs는 준비될 때까지 공개 경로·메뉴·홈·About에서 숨깁니다. Context Builder 페이지 코드는 src/disabled-pages/labs에 보관하며 빌드에 포함하지 않습니다. 소개용 글과 Project 항목은 삭제했습니다.
 
 ## 화면과 Labs
 
