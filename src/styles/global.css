@@ -326,3 +326,23 @@ progress { width: min(100%, 400px); accent-color: var(--accent); }
 .note-card.featured .note-card-link { padding: clamp(1.25rem, 2.5vw, 2rem); }
 
 .home-project + .home-project { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+
+/* Shared horizontal cards for Series and Projects. */
+.collection-list { display: grid; gap: 1rem; }
+  .collection-card { max-width: none; padding: 1.75rem; margin: 0; }
+  .collection-card + .collection-card { margin-top: 0; }
+  .collection-card-media { min-width: 0; }
+  .collection-card-media .project-cover { margin: 0; }
+  .collection-card-copy { min-width: 0; }
+  .collection-card h2 { margin: .75rem 0 .6rem; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.35; }
+  .collection-card p { margin: .6rem 0; line-height: 1.8; }
+  .sample-cover { display: flex; flex-direction: column; justify-content: space-between; aspect-ratio: 1017 / 740; padding: 1.25rem; border: 1px solid var(--line); background: var(--accent-soft); color: var(--accent); }
+  .sample-number { font-family: var(--font-display); font-size: 4.5rem; line-height: 1; }
+  .sample-caption { font-size: .65rem; font-weight: 600; letter-spacing: .16em; }
+  @media (min-width: 769px) {
+    .collection-card.has-media { display: grid; grid-template-columns: 260px minmax(0, 1fr); align-items: center; gap: 2rem; }
+  }
+  @media (max-width: 768px) {
+    .collection-card { padding: 1.25rem; }
+    .collection-card-media { max-width: 320px; margin-bottom: 1.25rem; }
+  }

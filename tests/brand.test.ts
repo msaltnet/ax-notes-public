@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 const html = (path: string) => readFileSync('docs/' + path, 'utf8');
 describe('AX Notes operating model', () => {
   it('introduces the brand and an executable Lab', () => {
@@ -20,9 +20,18 @@ describe('AX Notes operating model', () => {
     expect(html('notes/index.html')).not.toContain('data-filter="story"');
   });
   it('distinguishes projects from exploratory series', () => {
-    expect(html('series/index.html')).toContain('PROJECT');
-    expect(html('series/context-builder/index.html')).toContain('진행 중');
-    expect(html('series/context-builder/index.html')).toContain('/labs/context-builder/');
+    expect(html('projects/index.html')).toContain('PROJECT /');
+    expect(html('projects/index.html')).toContain('나의 작은 에이전트 nanobot');
+    expect(html('projects/index.html')).not.toContain('Agent와 일하는 연습');
+    expect(html('series/index.html')).toContain('Agent와 일하는 연습');
+    expect(html('series/index.html')).not.toContain('나의 작은 에이전트 nanobot');
+    expect(html('projects/index.html')).not.toContain('Context Builder 만들기');
+    expect(existsSync('docs/series/context-builder/index.html')).toBe(false);
+    expect(existsSync('docs/notes/context-builder-start/index.html')).toBe(false);
+    expect(html('notes/index.html')).not.toContain('/notes/context-builder-start/');
+    expect(html('rss.xml')).not.toContain('context-builder-start');
+    expect(html('labs/index.html')).not.toContain('/series/context-builder/');
+    expect(html('labs/context-builder/index.html')).not.toContain('/series/context-builder/');
   });
   it('offers a context form and download action', () => {
     const page = html('labs/context-builder/index.html');

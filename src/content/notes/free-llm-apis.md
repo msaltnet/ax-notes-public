@@ -1,6 +1,6 @@
 ---
 id: free-llm-apis
-title: "무료로 OpenAI API 사용하기! 꿀팁!"
+title: "무료로 OpenAI API 사용하기. 꿀팁 방출!"
 description: "무료 LLM API를 비교하고, OpenAI에 데이터를 공유하는 대신 하루 250만 토큰을 받는 꿀팁을 소개합니다. 물론 조건은 있습니다."
 date: "2026-10-06"
 tags: [LLM, API, Agent, Free Tier]

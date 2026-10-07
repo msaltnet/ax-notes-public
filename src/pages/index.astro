@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NoteCard from '../components/NoteCard.astro';
+import ProjectCover from '../components/ProjectCover.astro';
 import { getSiteContent, projectStatus } from '../lib/data';
 import { href, seriesHref } from '../lib/links';
 const { notes, series } = await getSiteContent();
@@ -20,9 +21,9 @@ const projects = series.filter((item) => item.data.type === 'project' && item.da
       {projects.length > 0 ? projects.map((project) => {
         if (project.data.type !== 'project') return null;
         const count = notes.filter((note) => note.data.collection === project.id).length;
-        return <article class="home-project"><h2>{project.data.title}</h2><p>{project.data.description}</p><p class="project-state">{count}{project.data.planned_notes ? ` / ${project.data.planned_notes}` : ''} Notes · {projectStatus[project.data.status]}</p><a class="text-link" href={seriesHref(project.id)}>만드는 과정 읽기 ↗</a></article>;
+        return <article class="home-project">{project.data.cover_image && <ProjectCover src={project.data.cover_image} alt={project.data.cover_alt ?? `${project.data.title} 대표 이미지`} />}<h2>{project.data.title}</h2><p>{project.data.description}</p><p class="project-state">{count}{project.data.planned_notes ? ` / ${project.data.planned_notes}` : ''} Notes · {projectStatus[project.data.status]}</p><a class="text-link" href={seriesHref(project.id)}>만드는 과정 읽기 ↗</a></article>;
       }) : <><h2>다음 실험을 준비합니다.</h2><p>진행 중인 프로젝트가 없습니다.</p></>}
-      <p><a class="text-link" href={href('/series/')}>모든 프로젝트와 연재 ↗</a></p>
+      <p><a class="text-link" href={href('/projects/')}>모든 프로젝트 ↗</a></p>
     </div>
     <div class="home-panel"><span class="eyebrow">From the Lab</span><h2>Context Builder</h2><p>여섯 가지 질문으로 AI가 내 업무를 이해할 수 있는 Context 문서를 만들어보세요.</p><span class="lab-status">브라우저에서 실행 · 로그인 없이</span><p><a class="text-link" href={href('/labs/context-builder/')}>Try it →</a></p></div>
   </section>

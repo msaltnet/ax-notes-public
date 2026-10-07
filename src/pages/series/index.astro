@@ -1,13 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getSiteContent, projectStatus } from '../../lib/data';
+import ProjectCover from '../../components/ProjectCover.astro';
+import { getSiteContent } from '../../lib/data';
 import { seriesHref } from '../../lib/links';
-const { notes, series } = await getSiteContent();
+const { notes, series: collections } = await getSiteContent();
+const series = collections.filter((item) => item.data.type === 'series');
 ---
-<BaseLayout title="Series" description="주제를 탐구하는 Series와 실제 결과물을 만드는 Project">
-  <div class="page-heading container"><span class="eyebrow">COLLECTIONS / {String(series.length).padStart(2, '0')}</span><h1>이어 읽고,<br />직접 만들어봅니다.</h1><p>계속 궁금하면 Series, 목표와 결과물을 향해 움직이면 Project.</p></div>
-  <div class="page-content container">{series.map((item) => {
+<BaseLayout title="Series" description="계속 궁금한 주제를 이어 탐구하는 연재 기록">
+  <div class="page-heading container"><span class="eyebrow">SERIES / {String(series.length).padStart(2, '0')}</span><h1>이어 읽고,<br />함께 탐구합니다.</h1><p>계속 궁금한 주제를 차곡차곡 이어가는 연재들.</p></div>
+  <div class="page-content container collection-list">{series.map((item, index) => {
     const count = notes.filter((note) => note.data.collection === item.id).length;
-    return <a class="series-card" href={seriesHref(item.id)}><span class="eyebrow">{item.data.type.toUpperCase()} / {count} NOTES</span><h2>{item.data.title}</h2><p>{item.data.description}</p>{item.data.type === 'project' && <p class="project-state">{projectStatus[item.data.status]} · {count}{item.data.planned_notes ? ` / ${item.data.planned_notes}` : ''} Notes</p>}<span class="text-link">기록 읽기 ↗</span></a>;
+    return <a class="series-card collection-card has-media" href={seriesHref(item.id)}>
+      <div class="collection-card-media">
+        {item.data.cover_image ? <ProjectCover src={item.data.cover_image} alt={item.data.cover_alt ?? `${item.data.title} 대표 이미지`} /> : <div class="sample-cover" aria-hidden="true"><span class="sample-number">{String(index + 1).padStart(2, '0')}</span><span class="sample-caption">SERIES / FIELD NOTES</span></div>}
+      </div>
+      <div class="collection-card-copy"><span class="eyebrow">SERIES / {count} NOTES</span><h2>{item.data.title}</h2><p>{item.data.description}</p><span class="text-link">기록 읽기 ↗</span></div>
+    </a>;
   })}</div>
 </BaseLayout>

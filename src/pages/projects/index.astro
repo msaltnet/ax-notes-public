@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCover from '../../components/ProjectCover.astro';
+import { getSiteContent, projectStatus } from '../../lib/data';
+import { seriesHref } from '../../lib/links';
+const { notes, series } = await getSiteContent();
+const projects = series.filter((item) => item.data.type === 'project');
+---
+<BaseLayout title="Projects" description="목표와 결과물을 향해 직접 만드는 프로젝트 기록">
+  <div class="page-heading container"><span class="eyebrow">PROJECTS / {String(projects.length).padStart(2, '0')}</span><h1>직접 만들고,<br />과정을 기록합니다.</h1><p>목표와 결과물을 향해 움직이는 작은 프로젝트들.</p></div>
+  <div class="page-content container collection-list">{projects.map((item) => {
+    const count = notes.filter((note) => note.data.collection === item.id).length;
+    return <a class:list={['series-card', 'collection-card', { 'has-media': item.data.type === 'project' && !!item.data.cover_image }]} href={seriesHref(item.id)}>
+      {item.data.type === 'project' && item.data.cover_image && <div class="collection-card-media"><ProjectCover src={item.data.cover_image} alt={item.data.cover_alt ?? `${item.data.title} 대표 이미지`} /></div>}
+      <div class="collection-card-copy"><span class="eyebrow">PROJECT / {count} NOTES</span><h2>{item.data.title}</h2><p>{item.data.description}</p>{item.data.type === 'project' && <p class="project-state">{projectStatus[item.data.status]} · {count}{item.data.planned_notes ? ` / ${item.data.planned_notes}` : ''} Notes</p>}<span class="text-link">기록 읽기 ↗</span></div>
+    </a>;
+  })}
+  </div>
+</BaseLayout>

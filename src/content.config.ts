@@ -16,13 +16,15 @@ const notes = defineCollection({
 const common = { id, title: z.string().min(1), description: z.string().min(1) };
 const collectionEntries = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/collections' }),
-  schema: z.discriminatedUnion('type', [
-    z.object({ ...common, type: z.literal('series') }).strict(),
+  schema: ({ image }) => z.discriminatedUnion('type', [
+    z.object({ ...common, type: z.literal('series'), cover_image: image().optional(), cover_alt: z.string().min(1).optional() }).strict(),
     z.object({
       ...common, type: z.literal('project'), goal: z.string().min(1),
       status: z.enum(['planned', 'in-progress', 'completed', 'paused']),
       planned_notes: z.number().int().positive().optional(),
       result: z.string().regex(/^\/labs\/[a-z0-9-]+\/$/).optional(),
+      cover_image: image().optional(),
+      cover_alt: z.string().min(1).optional(),
     }).strict(),
   ]),
 });
