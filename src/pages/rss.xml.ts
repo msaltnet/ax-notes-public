@@ -7,7 +7,7 @@ export async function GET(context: { site: URL | undefined }) {
   return rss({
     title: 'AX Notes',
     description: 'AI로 일하는 방식을 바꾸며 배우고 생각한 것들.',
-    site: new URL(import.meta.env.BASE_URL, context.site ?? new URL('https://dev-team-404.github.io')),
+    site: new URL(import.meta.env.BASE_URL, context.site ?? new URL('https://msaltnet.github.io')),
     items: notes.map((note) => ({
       title: note.data.title,
       description: note.data.description,

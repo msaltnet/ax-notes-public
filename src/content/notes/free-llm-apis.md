@@ -1,10 +1,10 @@
 ---
 id: free-llm-apis
-title: "뼈를 주고 살을 취한다. 무료 OpenAI API 사용팁!"
-description: "무료 컴퓨타에 이은 무료 LLM API 시리즈. OpenAI에 데이터를 공유하는 대신 하루 250만 토큰을 받는 꿀팁을 소개합니다."
+title: "무료로 OpenAI API 사용하기! 꿀팁!"
+description: "무료 LLM API를 비교하고, OpenAI에 데이터를 공유하는 대신 하루 250만 토큰을 받는 꿀팁을 소개합니다. 물론 조건은 있습니다."
 date: "2026-10-06"
 tags: [LLM, API, Agent, Free Tier]
-aftertaste: "잊지 마세요. 대한민국에서 내 데이터는 공유재입니다."
+aftertaste: "토큰은 데이터 공유로. 무료에도 교환 조건은 있습니다."
 ---
 
 GPU가 없어서 허덕이는게 벌써 2년 이상 된것 같네요. 2년 전에 당근한 RTX2070을 들고 기뻐하던 저를 이상하게 보던 중학생 판매자가 생각이 납니다. GPU 가격이 내릴 줄 모르고, 메모리까지 합세해서 아주 곤란한 지경입니다.

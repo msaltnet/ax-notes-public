@@ -1,14 +1,47 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const dist = (path: string) => join(process.cwd(), 'docs', path);
 const html = (path: string) => readFileSync(dist(path), 'utf8');
 const base = (process.env.BASE_PATH ?? '/ax-notes-public').replace(/\/+$/, '');
 const publicPath = (path: string) => `${base}${path}`;
-const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://dev-team-404.github.io').href;
+const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://msaltnet.github.io').href;
 
 describe('built public site', () => {
+  it('makes article tables keyboard-accessible without losing their headers or cells', () => {
+    for (const path of ['notes/agent-review-loop/index.html', 'notes/automation-review-time/index.html']) {
+      const article = html(path);
+      expect(article).toMatch(/<div class="article-table" tabindex="0" role="region" aria-label="본문 표">\s*<table>/);
+      expect(article).toMatch(/<thead>[\s\S]*?<th>[\s\S]*?<\/thead>/);
+      expect(article).toMatch(/<tbody>[\s\S]*?<td>[\s\S]*?<\/tbody><\/table><\/div>/);
+    }
+    expect(html('notes/agent-review-loop/index.html')).toContain('인용한 부분이 요약을 뒷받침하는가');
+  });
+
+  it('serves every local link and asset from the configured mount point', () => {
+    const pages = readdirSync(dist(''), { recursive: true })
+      .filter((path): path is string => typeof path === 'string' && path.endsWith('.html'));
+    expect(pages.length).toBeGreaterThan(0);
+    for (const page of pages) {
+      const links = html(page).matchAll(/(?:href|src)="(\/[^"\s]*)"/g);
+      for (const [, link] of links) {
+        if (link.startsWith('//')) continue;
+        expect(link.startsWith(`${base}/`), `${page}: ${link}`).toBe(true);
+        const path = decodeURIComponent(link.split(/[?#]/)[0].slice(base.length));
+        const target = path.endsWith('/') ? `${path}index.html` : path;
+        expect(existsSync(dist(target.replace(/^\//, ''))), `${page}: ${link}`).toBe(true);
+      }
+    }
+  });
+
+  it('publishes canonical and preview URLs for the configured domain', () => {
+    const home = html('index.html');
+    expect(home).toContain(`<link rel="canonical" href="${siteRoot}">`);
+    expect(home).toContain(`property="og:image" content="${new URL('og.png', siteRoot).href}"`);
+    expect(html('sitemap-0.xml')).toContain(`<loc>${siteRoot}</loc>`);
+  });
+
   it('publishes both sample notes with stable routes and navigation', () => {
     const home = html('index.html');
     expect(home).toContain('AX Notes');

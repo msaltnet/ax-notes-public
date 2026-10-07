@@ -39,12 +39,14 @@ npm run verify
 npm run preview
 ```
 
-verify는 Astro 타입 검사 → 정적 빌드 → Pagefind → Vitest 순서입니다. 검색·RSS·canonical·OG·Dark Mode·하위 경로를 유지합니다. SITE_URL과 BASE_PATH로 도메인과 경로를 설정하며 기본 주소는 https://dev-team-404.github.io/ax-notes-public/입니다.
+verify는 Astro 타입 검사 → 정적 빌드 → Pagefind → Vitest 순서입니다. 검색·RSS·canonical·OG·Dark Mode·하위 경로를 유지합니다. SITE_URL과 BASE_PATH로 도메인과 경로를 설정하며 기본 주소는 https://msaltnet.github.io/ax-notes-public/입니다.
 
 ## GitHub Pages
 
-.github/workflows/pages.yml은 PR에서 검증만 하고 main push 또는 수동 dispatch에서 검증한 dist를 GitHub Pages에 배포합니다. Node 24를 사용합니다. Pages source를 GitHub Actions로 설정하세요. 코드 변경만으로 실제 배포가 완료되지는 않습니다.
+.github/workflows/deploy.yml은 PR에서 검증만 하고 main push 또는 수동 dispatch에서 검증한 docs를 https://ax.msalt.net에 배포합니다. Node 22를 사용합니다. Pages source를 GitHub Actions로 설정하세요. 코드 변경만으로 실제 배포가 완료되지는 않습니다.
 
 기존 npm run deploy는 수동 gh-pages 게시용으로 남아 있습니다. Actions 운영 시에는 워크플로를 기준으로 게시하고 별도로 수동 게시하지 않습니다. Analytics는 공급자 확정 후 추가하며 내부 endpoint나 credential은 Public에 두지 않습니다.
 
 Public / Inside / Both는 편집 선택입니다. Both 원고는 공개 가능한 내용으로 작성하여 사람이 양쪽에 각각 발행합니다. 자동 동기화·overlay는 없습니다. Inside 경험을 외부에 쓰려면 이 저장소에서 Public 글을 새로 작성합니다.
+
+Public 저장소는 https://github.com/msaltnet/ax-notes-public 입니다. 이 저장소에서 직접 글과 사이트를 관리하며 이전 저장소의 자동 동기화는 사용하지 않습니다.
