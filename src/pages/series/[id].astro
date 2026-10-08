@@ -12,9 +12,10 @@ export async function getStaticPaths() {
 const { series, notes } = Astro.props;
 ---
 <BaseLayout title={series.data.title} description={series.data.description}>
-  <div class="page-heading container"><span class="eyebrow">{series.data.type.toUpperCase()} / {notes.length} NOTES</span><h1>{series.data.title}</h1><p>{series.data.description}</p>{series.data.type === 'project' && series.data.cover_image && <ProjectCover src={series.data.cover_image} alt={series.data.cover_alt ?? `${series.data.title} 대표 이미지`} prominent />}</div>
+  <div class="page-heading container"><span class="eyebrow">{series.data.type.toUpperCase()} / {notes.length} NOTES</span><h1>{series.data.title}</h1>{series.data.type === 'project' && <p>{series.data.description}</p>}{series.data.cover_image && <ProjectCover src={series.data.cover_image} alt={series.data.cover_alt ?? `${series.data.title} 대표 이미지`} prominent />}</div>
   <div class="page-content container">
     {series.data.type === 'project' && <section class="project-summary" aria-label="프로젝트 진행 상태"><span class="eyebrow">GOAL</span><p>{series.data.goal}</p><p class="project-state">{projectStatus[series.data.status]} · {notes.length}{series.data.planned_notes ? ` / ${series.data.planned_notes}` : ''} Notes</p>{series.data.planned_notes && <progress value={Math.min(notes.length, series.data.planned_notes)} max={series.data.planned_notes} aria-label="발행한 Note 진행률" />}{series.data.result && <p><a class="text-link" href={href(series.data.result)}>결과물 사용하기 ↗</a></p>}</section>}
+    {series.data.type === 'series' && <section class="project-summary" aria-label="연재 소개"><span class="eyebrow">연재 소개</span><p>{series.data.description}</p><p class="project-state">{notes.length} Notes</p></section>}
     <div class="list-rows">{notes.map((note) => <NoteRow note={note} />)}</div>
     {notes.length === 0 && <p>아직 발행된 Note가 없습니다.</p>}
   </div>

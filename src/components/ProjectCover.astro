@@ -7,5 +7,9 @@ const { src, alt, prominent = false } = Astro.props;
 <Image src={src} alt={alt} class:list={['project-cover', { prominent }]} loading={prominent ? 'eager' : 'lazy'} />
 <style>
   .project-cover { display: block; width: 100%; height: auto; margin-bottom: 1.5rem; border: 1px solid var(--line); }
-  .project-cover.prominent { max-width: 900px; margin-top: 2rem; margin-bottom: 0; }
+  .project-cover.prominent { margin-top: 2rem; margin-bottom: 0; }
+  @media (min-width: 769px) {
+    .project-cover { max-width: 320px; }
+    .project-cover.prominent { max-width: 480px; }
+  }
 </style>
