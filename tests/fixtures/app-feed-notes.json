@@ -1,0 +1,5 @@
+[
+  { "id": "published-new", "data": { "id": "published-new", "title": "Published newest", "description": "Visible note", "date": "2026-10-07", "collection": "demo-project", "collection_order": 1 } },
+  { "id": "synthetic-draft", "data": { "id": "synthetic-draft", "title": "PRIVATE DRAFT SENTINEL", "description": "Must never be exported", "date": "2099-01-01", "draft": true } },
+  { "id": "published-old", "data": { "id": "published-old", "title": "Published older", "description": "Visible older note", "date": "2026-01-01" } }
+]
