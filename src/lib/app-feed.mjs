@@ -100,9 +100,14 @@ export function noteRevision(metadata, body) {
   // detailUrl/revision and generatedAt are deliberately not part of the hash input.
   const { id, title, description, publishedAt, updatedAt, canonicalUrl, collectionId, projectUrl } = metadata;
   const { bodyHtml, bodyText } = body;
+  // Preserve legacy v1 hashing when optional taxonomy fields are absent.
+  const taxonomy = Object.fromEntries(
+    ['projectId', 'projectTitle', 'projectOrder', 'seriesId', 'seriesTitle', 'seriesOrder']
+      .filter((key) => Object.hasOwn(metadata, key)).map((key) => [key, metadata[key]]),
+  );
   return createHash('sha256').update(canonicalJson({
     schemaVersion: feedSchemaVersion, id, title, description, publishedAt, updatedAt,
-    canonicalUrl, collectionId, projectUrl, bodyHtml, bodyText,
+    canonicalUrl, collectionId, projectUrl, ...taxonomy, bodyHtml, bodyText,
   }), 'utf8').digest('hex');
 }
 
