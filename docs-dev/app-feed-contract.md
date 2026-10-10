@@ -29,7 +29,11 @@ Each note summary contains:
 | `detailUrl` | Absolute HTTPS revision-addressed JSON URL |
 | `revision` | Lowercase 64-character SHA-256 digest |
 | `collectionId` | Existing collection ID or `null` |
+| `projectId`, `projectTitle`, `projectOrder` | Additive optional project identity, authored collection title, and positive `collection_order`; `null` when this note is not in a project |
+| `seriesId`, `seriesTitle`, `seriesOrder` | Additive optional series identity, authored collection title, and positive `collection_order`; `null` when this note is not in a series |
 | `projectUrl` | Public `/series/{collectionId}/` project overview if the collection is a project; otherwise `null` |
+
+Taxonomy is read from each note's existing `collection` and `collection_order`, joined to `src/content/collections/<id>.md`. A note belongs to at most one collection, so project and series fields are mutually exclusive. IDs remain stable when editorial titles change. Within each project/series, clients use the positive order value rather than publication date to follow the authored sequence. Standalone notes have `null` taxonomy; do not infer a group from a note title or URL. Clients must continue to accept older schema-v1 manifests that omit all six additive fields, and keep those articles readable without inventing a group.
 
 The existing project overview route is intentionally preserved. This URL does not point to an unpublished Lab or an inferred external repository. Notes are sorted newest-first by the website's publication policy, with ID as the stable date-tie ordering.
 
@@ -37,7 +41,7 @@ The existing project overview route is intentionally preserved. This URL does no
 
 A detail contains exactly `schemaVersion: 1`, `id`, `revision`, `bodyHtml`, and `bodyText`. `bodyHtml` is only the rendered article body, including authored Aftertaste when present. It excludes the page header, site navigation, footer, sharing links and metadata sidebar. The manifest carries title/description/date separately.
 
-The revision hashes the UTF-8 bytes of canonical JSON containing these keys: `schemaVersion`, `id`, `title`, `description`, `publishedAt`, `updatedAt`, `canonicalUrl`, `collectionId`, `projectUrl`, `bodyHtml`, `bodyText`. Canonical JSON recursively sorts object keys lexicographically, preserves array order, uses ordinary JSON string escaping, and has no insignificant whitespace. `generatedAt`, `revision`, and `detailUrl` are excluded. A metadata-only correction changes the revision; an otherwise identical rebuild does not.
+The revision hashes the UTF-8 bytes of canonical JSON containing these keys: `schemaVersion`, `id`, `title`, `description`, `publishedAt`, `updatedAt`, `canonicalUrl`, `collectionId`, `projectUrl`, `bodyHtml`, `bodyText`. Canonical JSON recursively sorts object keys lexicographically, preserves array order, uses ordinary JSON string escaping, and has no insignificant whitespace. The six additive taxonomy fields (`projectId`, `projectTitle`, `projectOrder`, `seriesId`, `seriesTitle`, `seriesOrder`) are also hashed when present, so a collection-title or order correction updates the revision. Absent optional fields are omitted from hash input, preserving the original v1 hash for legacy metadata. The exporter emits all six fields, including `null` values for nonmembers. `generatedAt`, `revision`, and `detailUrl` are excluded. A metadata-only correction changes the revision; an otherwise identical rebuild does not.
 
 The revision-addressed path prevents a cached manifest from accidentally fetching a different revision under the same detail URL. Static deployment replaces the site tree, so old revision files are **not guaranteed to remain available** after publication. On 404 or ID/revision mismatch, the client should keep its valid cached detail, refresh the manifest once, and retry that note's current detail URL. It must never overwrite a good cached detail with an error page or mismatched revision. Complete manifest omissions remove notes from the current published list; local bookmarks can retain their ID without presenting a removed note as currently published. This feed adds no server-side download or bookmark state.
 
@@ -64,6 +68,8 @@ npm run verify
 SITE_URL=https://ax.msalt.net BASE_PATH=/ npm run verify
 SITE_URL=https://ax.msalt.net BASE_PATH=/ npm run test:feed:draft
 ```
+
+`tests/app-feed-taxonomy.test.ts` also checks the real published projects/series, authored ordering, standalone notes, and legacy hashes.
 
 `tests/app-feed.test.ts` covers the schema shape, note sorting, synthetic draft exclusion, body sanitization, safe URL normalization, source-file removal, deterministic metadata-sensitive hashes, every current detail path, and same-origin link/image targets. The current `first-vibe-coding` article is published and is explicitly expected in the output; draft coverage uses `tests/fixtures/app-feed-notes.json` instead.
 

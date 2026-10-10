@@ -11,7 +11,7 @@ import { exportAppFeed } from '../src/integrations/app-feed.mjs';
 import fixture from './fixtures/app-feed-notes.json';
 
 const source = (site = 'https://ax.msalt.net', base = '/') => buildFeedSource(
-  fixture, [{ id: 'demo-project', data: { type: 'project' } }], new URL(site), base,
+  fixture, [{ id: 'demo-project', data: { type: 'project', title: 'Demo project' } }], new URL(site), base,
 );
 const article = '<nav>Not article navigation</nav><article class="article-body"><h2 id="heading">제목</h2><p>본문 &amp; text</p><img src="/_astro/photo.webp" alt="사진"><aside><p>Aftertaste sentence</p></aside></article><footer>Not article footer</footer>';
 
@@ -145,7 +145,7 @@ describe('built app/v1 contract', () => {
     expect(manifest.notes.some((note: { id: string }) => note.id === 'first-vibe-coding')).toBe(true);
     const dates: string[] = [];
     for (const summary of manifest.notes) {
-      expect(Object.keys(summary).sort()).toEqual(['canonicalUrl', 'collectionId', 'description', 'detailUrl', 'id', 'projectUrl', 'publishedAt', 'revision', 'title', 'updatedAt']);
+      expect(Object.keys(summary).sort()).toEqual(['canonicalUrl', 'collectionId', 'description', 'detailUrl', 'id', 'projectId', 'projectOrder', 'projectTitle', 'projectUrl', 'publishedAt', 'revision', 'seriesId', 'seriesOrder', 'seriesTitle', 'title', 'updatedAt']);
       expect(summary.id).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
       expect(summary.title.length).toBeGreaterThan(0);
       expect(summary.description.length).toBeGreaterThan(0);
