@@ -2,7 +2,7 @@
 id: nanobot-ubuntu-setup
 title: "Ubuntu, Python 3.11, nanobot 설치"
 description: "시작을 위한 시스템 셋업"
-date: "2025-01-10"
+date: "2026-10-04"
 tags: [nanobot, Agent, ubuntu, python, raspberry-pi, 설치]
 collection: nanobot
 collection_order: 3

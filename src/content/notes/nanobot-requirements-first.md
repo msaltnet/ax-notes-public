@@ -2,7 +2,7 @@
 id: nanobot-requirements-first
 title: "openclaw도 요구 사항부터"
 description: "무엇을 만들지 정하는 일이 구현보다 먼저"
-date: "2025-01-05"
+date: "2026-09-28"
 tags: [nanobot, Agent, requirements, planning]
 collection: nanobot
 collection_order: 1

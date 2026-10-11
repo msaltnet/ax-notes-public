@@ -2,7 +2,7 @@
 id: nanobot-bot-selection
 title: "나의 선택 - nanobot on rpi"
 description: "openclaw, nanoclaw, picoclaw... 그리고 nanobot"
-date: "2025-01-01"
+date: "2026-10-01"
 tags: [nanobot, Agent, raspberry-pi, 시작]
 collection: nanobot
 collection_order: 2

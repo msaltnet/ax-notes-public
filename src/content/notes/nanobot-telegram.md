@@ -2,7 +2,7 @@
 id: nanobot-telegram
 title: "Telegram 연결 - 봇과 상견례"
 description: "nanobot과 대화는 했지만 이거 맞아?"
-date: "2025-01-20"
+date: "2026-10-07"
 tags: [nanobot, Agent, telegram, 봇토큰]
 collection: nanobot
 collection_order: 4
