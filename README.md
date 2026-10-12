@@ -59,4 +59,6 @@ Public 저장소는 https://github.com/msaltnet/ax-notes-public 입니다. 이 �
 
 글에 본문 이미지가 있으면 첫 번째 이미지의 빌드 URL과 크기를 OG 및 Twitter 공유 메타데이터에 사용합니다. 본문 이미지가 없는 글과 일반 페이지는 public/og.png를 기본 이미지로 사용합니다. 기본 이미지를 바꾸려면 해당 파일을 교체합니다.
 
-현재 기본 이미지는 [ChatGPT에서 만든 AX Notes SNS 이미지](https://chatgpt.com/s/m_6ac62105b0c88191be80abb8df41f04b)의 원본(1731×909)을 사용합니다.
+기본 이미지는 1200×630이며, 사이트 헤더와 같은 AX 모노그램, 밝은 배경(`#faf7f8`), 버건디(`#842c48`)를 사용합니다. 브랜드 이름은 AX Notes, 중심 문구는 “악소리 나는 AX 경험담.”으로 통일합니다.
+
+수정 가능한 원본은 `assets/og-source.svg`입니다. `npm run generate:og`로 `public/og.png`를 다시 생성합니다. 생성 스크립트는 사이트의 Noto Serif KR과 IBM Plex Sans KR 패키지 폰트를 사용하며, 시스템 폰트를 별도로 설치할 필요가 없습니다. 원본 크기를 바꾸면 `src/layouts/BaseLayout.astro`의 기본 이미지 크기도 맞춰야 합니다. 이후 `npm run build`로 배포 산출물에 반영합니다.

@@ -1,12 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#202523"/>
-  <path d="M68 72H1132M68 558H1132" stroke="#78847a" stroke-width="2"/>
-  <path d="M68 85V545M1132 85V545" stroke="#435048" stroke-width="1"/>
-  <circle cx="1001" cy="316" r="126" fill="#e96943"/>
-  <path d="M920 388L1082 244M920 244L1082 388" stroke="#202523" stroke-width="13"/>
-  <text x="80" y="167" fill="#c3cac1" font-family="sans-serif" font-size="25" letter-spacing="8">FIELD NOTES ON AX</text>
-  <text x="71" y="365" fill="#f5f3ed" font-family="sans-serif" font-size="176" font-weight="700" letter-spacing="-13">AX</text>
-  <text x="359" y="365" fill="#f5f3ed" font-family="sans-serif" font-size="140" font-weight="700" letter-spacing="-8">NOTES</text>
-  <text x="80" y="511" fill="#c3cac1" font-family="sans-serif" font-size="25" letter-spacing="7">OBSERVE · BUILD · REFLECT</text>
-  <text x="1048" y="511" fill="#c3cac1" font-family="sans-serif" font-size="22" letter-spacing="3">2026</text>
+  <title>AX Notes — 악소리 나는 AX 경험담.</title>
+  <rect width="1200" height="630" fill="#faf7f8"/>
+  <path d="M72 72H1128" stroke="#ddd2d7"/>
+  <path d="M72 72H120" stroke="#842c48" stroke-width="3"/>
+  <text x="72" y="112" fill="#842c48" font-family="IBM Plex Sans KR, sans-serif" font-size="14" font-weight="600" letter-spacing="3">FIELD NOTES ON AX</text>
+  <!-- The same outlined AX mark used in the site header. -->
+  <svg x="64" y="163" width="310" height="190" viewBox="0 0 1240 760" fill="#292126">
+    <path d="M13 0L13 32L97 42L330 740L404 740L641 40L725 32L725 0L414 0L414 32L520 42L455 244L207 244L143 43L238 32L238 0ZM444 277L330 631L218 277Z" transform="translate(8 750) scale(1 -1)"/>
+    <path d="M13 0L13 32L105 43L306 349L101 697L24 704L24 735L335 735L335 704L233 695L383 439L537 693L436 704L436 735L677 735L677 704L583 694L400 410L618 40L701 32L701 0L385 0L385 32L487 41L324 318L155 44L257 32L257 0Z" transform="translate(520 750) scale(1 -1)"/>
+  </svg>
+  <text x="417" y="311" fill="#292126" font-family="Noto Serif KR, Georgia, serif" font-size="36" font-weight="600" letter-spacing="9">NOTES</text>
+  <text x="72" y="429" fill="#292126" font-family="Noto Serif KR, serif" font-size="44" font-weight="600" letter-spacing="-1.5">악소리 나는 AX 경험담.</text>
+  <text x="74" y="477" fill="#74656d" font-family="IBM Plex Sans KR, sans-serif" font-size="20">써보고, 만들고, 경험을 기록합니다.</text>
+  <path d="M72 548H1128" stroke="#ddd2d7"/>
+  <text x="72" y="583" fill="#842c48" font-family="IBM Plex Sans KR, sans-serif" font-size="13" font-weight="600" letter-spacing="2">NOTES / SERIES / PROJECTS</text>
+  <text x="1128" y="583" text-anchor="end" fill="#74656d" font-family="IBM Plex Sans KR, sans-serif" font-size="14" letter-spacing="1">msalt.net</text>
 </svg>

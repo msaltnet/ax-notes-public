@@ -11,7 +11,7 @@ const {
 } = Astro.props;
 const fullTitle = title === 'AX Notes' ? 'AX Notes — 변화의 현장 기록' : `${title} · AX Notes`;
 const canonical = Astro.url.href;
-const preview = shareImage ?? { src: href('/og.png'), width: 1731, height: 909, alt: 'AX Notes — 악소리 나는 AX 경험담.' };
+const preview = shareImage ?? { src: href('/og.png'), width: 1200, height: 630, alt: 'AX Notes — 악소리 나는 AX 경험담.' };
 const previewUrl = new URL(preview.src, Astro.site ?? Astro.url).href;
 const current = Astro.url.pathname;
 const nav = [

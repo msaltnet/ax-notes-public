@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-11T13:21:56.761Z",
+  "generatedAt": "2026-10-12T07:27:19.745Z",
   "author": {
     "name": "AX Notes",
     "aboutUrl": "https://msaltnet.github.io/ax-notes-public/about/",
@@ -22,8 +22,8 @@
       "seriesId": "dots-and-muse",
       "seriesTitle": "dots와 muse 사용기",
       "seriesOrder": 1,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/dots-connected/9e5f9e5858bd7d82439a2d0bfd77dd22bf7d922ef3bc8a5998b50dfcd049e1e5.json",
-      "revision": "9e5f9e5858bd7d82439a2d0bfd77dd22bf7d922ef3bc8a5998b50dfcd049e1e5"
+      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/dots-connected/36353512fe09ba7473ef001fde8e480a0db0fe7dc805e65e002da3352111097a.json",
+      "revision": "36353512fe09ba7473ef001fde8e480a0db0fe7dc805e65e002da3352111097a"
     },
     {
       "id": "ax-notes-app-requirements-first",
