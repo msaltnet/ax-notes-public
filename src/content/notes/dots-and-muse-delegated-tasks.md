@@ -7,7 +7,6 @@ tags: [dots, muse, 사용기, Agent]
 collection: dots-and-muse
 collection_order: 2
 aftertaste: "무료라고 다 시켜봤는데, 기다리는 제 시간은 무료가 아니네요ㅎ"
-draft: true
 ---
 
 지난 글에서 쪼쪼와 뿡뿡이를 만난 이야기를 했는데요. 이번에는 무슨 일을 시켰는지 적어보려고 합니다. 무료라고 하니까 일단 이것저것 던져봤습니다. ~~양잿물 정신!~~
