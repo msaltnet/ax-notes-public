@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ax.msalt.net/sitemap-index.xml
