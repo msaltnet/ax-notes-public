@@ -1,12 +1,48 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-12T07:27:19.745Z",
+  "generatedAt": "2026-10-24T15:17:08.887Z",
   "author": {
     "name": "AX Notes",
     "aboutUrl": "https://msaltnet.github.io/ax-notes-public/about/",
     "channels": []
   },
   "notes": [
+    {
+      "id": "dots-ax-notes-beta-testers",
+      "title": "dots로 만든 앱 베타 테스터를 모집합니다",
+      "description": "쪼쪼에게 맡긴 AX Notes가 Google Play 비공개 테스트 준비까지 왔습니다. dots와 Codex로 앱을 만들고 등록한 과정, 그리고 베타 테스터 모집 이야기입니다.",
+      "publishedAt": "2026-10-24",
+      "updatedAt": null,
+      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/dots-ax-notes-beta-testers/",
+      "collectionId": "dots-and-muse",
+      "projectUrl": null,
+      "projectId": null,
+      "projectTitle": null,
+      "projectOrder": null,
+      "seriesId": "dots-and-muse",
+      "seriesTitle": "dots와 muse 사용기",
+      "seriesOrder": 3,
+      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/dots-ax-notes-beta-testers/7bd792663ad39248f4d021314e0c25f8ade7e5c8e760296383001c738e7269da.json",
+      "revision": "7bd792663ad39248f4d021314e0c25f8ade7e5c8e760296383001c738e7269da"
+    },
+    {
+      "id": "dots-and-muse-delegated-tasks",
+      "title": "dots와 muse에게 시킨 일들",
+      "description": "쪼쪼에게 개발부터 메일 확인까지 시켜봤습니다. 뿡뿡이는... 답장이 20시간 뒤에 왔어요. 후...",
+      "publishedAt": "2026-10-13",
+      "updatedAt": null,
+      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/dots-and-muse-delegated-tasks/",
+      "collectionId": "dots-and-muse",
+      "projectUrl": null,
+      "projectId": null,
+      "projectTitle": null,
+      "projectOrder": null,
+      "seriesId": "dots-and-muse",
+      "seriesTitle": "dots와 muse 사용기",
+      "seriesOrder": 2,
+      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/dots-and-muse-delegated-tasks/d6fbd5bf1f75127e90dc93e766f95f39c1f853af4c081c348c445ecf37d484ed.json",
+      "revision": "d6fbd5bf1f75127e90dc93e766f95f39c1f853af4c081c348c445ecf37d484ed"
+    },
     {
       "id": "dots-connected",
       "title": "dots와 muse를 시작합니다",
