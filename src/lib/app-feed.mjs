@@ -64,7 +64,7 @@ export function absoluteArticleUrl(value, canonicalUrl, siteRoot) {
 }
 
 /** Extract the website's final, image-resolved article, never its navigation or scripts. */
-export async function sanitizeArticle(pageHtml, canonicalUrl, siteRoot) {
+export async function sanitizeArticle(pageHtml, canonicalUrl, siteRoot, { preserveEmailLinks = false } = {}) {
   const parser = unified().use(rehypeParse);
   const page = parser.parse(pageHtml);
   const articles = [];
@@ -77,12 +77,16 @@ export async function sanitizeArticle(pageHtml, canonicalUrl, siteRoot) {
     if (node.type !== 'element') return;
     for (const attribute of ['href', 'src']) {
       if (!(attribute in node.properties)) continue;
+      if (preserveEmailLinks && attribute === 'href' && /^mailto:[^\u0000-\u0020\u007f\\]+$/i.test(node.properties[attribute])) continue;
       const url = absoluteArticleUrl(node.properties[attribute], canonicalUrl, siteRoot);
       if (url) node.properties[attribute] = url;
       else delete node.properties[attribute];
     }
   });
-  const processor = unified().use(rehypeSanitize, safeArticleSchema).use(rehypeStringify);
+  const schema = preserveEmailLinks
+    ? { ...safeArticleSchema, protocols: { ...safeArticleSchema.protocols, href: ['https', 'mailto'] } }
+    : safeArticleSchema;
+  const processor = unified().use(rehypeSanitize, schema).use(rehypeStringify);
   const clean = processor.runSync(article);
   return { bodyHtml: processor.stringify(clean).trim(), bodyText: toText(clean).trim() };
 }

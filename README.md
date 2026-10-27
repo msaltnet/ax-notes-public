@@ -41,6 +41,8 @@ npm run preview
 
 verify는 Astro 타입 검사 → 정적 빌드 → Pagefind → Vitest 순서입니다. 검색·RSS·canonical·OG·Dark Mode·하위 경로를 유지합니다. SITE_URL과 BASE_PATH로 도메인과 경로를 설정하며 기본 주소는 https://msaltnet.github.io/ax-notes-public/입니다.
 
+`robots.txt`는 검색로봇의 수집을 허용하고 현재 배포 주소의 `sitemap-index.xml`을 안내합니다. `rss.xml`은 공개 글의 요약과 정제된 본문 전체를 함께 제공하며, 이미지·링크는 HTTPS 절대 주소로 변환합니다. 네이버 서치어드바이저 소유확인 메타 태그는 공통 레이아웃에 유지합니다.
+
 ## 앱용 공개 JSON
 
 같은 정적 빌드에서 `app/v1/manifest.json`과 `app/v1/notes/<id>/<revision>.json`을 생성합니다. 웹사이트와 같은 공개 글만 포함하며, 본문은 스크립트 없이 정제하고 링크·이미지는 HTTPS 절대 주소로 내보냅니다. 기존 글·경로는 바꾸지 않습니다. 빌드 후 `npm run preview`로 확인할 수 있습니다. 계약·캐시 규칙·검증 방법은 [앱 피드 계약](docs-dev/app-feed-contract.md)에 정리했습니다.

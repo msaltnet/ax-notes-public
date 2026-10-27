@@ -1,19 +1,55 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-12T07:27:19.745Z",
+  "generatedAt": "2026-10-25T02:06:18.862Z",
   "author": {
     "name": "AX Notes",
-    "aboutUrl": "https://msaltnet.github.io/ax-notes-public/about/",
+    "aboutUrl": "https://ax.msalt.net/about/",
     "channels": []
   },
   "notes": [
+    {
+      "id": "dots-ax-notes-beta-testers",
+      "title": "dots로 만든 앱 보증인 찾기",
+      "description": "쪼쪼에게 맡긴 AX Notes가 Google Play 비공개 테스트 준비까지 왔습니다. dots와 Codex로 앱을 만들고 등록한 과정, 그리고 베타 테스터 모집 이야기입니다.",
+      "publishedAt": "2026-10-24",
+      "updatedAt": null,
+      "canonicalUrl": "https://ax.msalt.net/notes/dots-ax-notes-beta-testers/",
+      "collectionId": "dots-and-muse",
+      "projectUrl": null,
+      "projectId": null,
+      "projectTitle": null,
+      "projectOrder": null,
+      "seriesId": "dots-and-muse",
+      "seriesTitle": "dots와 muse 사용기",
+      "seriesOrder": 3,
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/dots-ax-notes-beta-testers/d22b9b934d027a6d08e971c12e7633bc737318a921717bcd18235a3ebc765166.json",
+      "revision": "d22b9b934d027a6d08e971c12e7633bc737318a921717bcd18235a3ebc765166"
+    },
+    {
+      "id": "dots-and-muse-delegated-tasks",
+      "title": "dots와 muse에게 시킨 일들",
+      "description": "쪼쪼에게 개발부터 메일 확인까지 시켜봤습니다. 뿡뿡이는... 답장이 20시간 뒤에 왔어요. 후...",
+      "publishedAt": "2026-10-13",
+      "updatedAt": null,
+      "canonicalUrl": "https://ax.msalt.net/notes/dots-and-muse-delegated-tasks/",
+      "collectionId": "dots-and-muse",
+      "projectUrl": null,
+      "projectId": null,
+      "projectTitle": null,
+      "projectOrder": null,
+      "seriesId": "dots-and-muse",
+      "seriesTitle": "dots와 muse 사용기",
+      "seriesOrder": 2,
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/dots-and-muse-delegated-tasks/b7d2c4df69c24d6a556a199175983c5569ade22355ff1346fcf037dd5e58bbc9.json",
+      "revision": "b7d2c4df69c24d6a556a199175983c5569ade22355ff1346fcf037dd5e58bbc9"
+    },
     {
       "id": "dots-connected",
       "title": "dots와 muse를 시작합니다",
       "description": "dots와 muse 사용기의 시작. 직접 써보며 경험을 기록해보려고 합니다. 부지런히 채찍질해보겠습니당",
       "publishedAt": "2026-10-08",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/dots-connected/",
+      "canonicalUrl": "https://ax.msalt.net/notes/dots-connected/",
       "collectionId": "dots-and-muse",
       "projectUrl": null,
       "projectId": null,
@@ -22,8 +58,8 @@
       "seriesId": "dots-and-muse",
       "seriesTitle": "dots와 muse 사용기",
       "seriesOrder": 1,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/dots-connected/36353512fe09ba7473ef001fde8e480a0db0fe7dc805e65e002da3352111097a.json",
-      "revision": "36353512fe09ba7473ef001fde8e480a0db0fe7dc805e65e002da3352111097a"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/dots-connected/5cf6a19cf2d178f14a284eeab7900876f48aa52e5305f812b0398058141d589d.json",
+      "revision": "5cf6a19cf2d178f14a284eeab7900876f48aa52e5305f812b0398058141d589d"
     },
     {
       "id": "ax-notes-app-requirements-first",
@@ -31,17 +67,17 @@
       "description": "Astra 토큰이 무료라고? 알아서 해준다고?! 앱도 하나 만들어 볼까? - 쪼쪼에게 맡겨볼께요",
       "publishedAt": "2026-10-07",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/ax-notes-app-requirements-first/",
+      "canonicalUrl": "https://ax.msalt.net/notes/ax-notes-app-requirements-first/",
       "collectionId": "ax-notes-app",
-      "projectUrl": "https://msaltnet.github.io/ax-notes-public/series/ax-notes-app/",
+      "projectUrl": "https://ax.msalt.net/series/ax-notes-app/",
       "projectId": "ax-notes-app",
       "projectTitle": "AX Notes 앱 만들기",
       "projectOrder": 1,
       "seriesId": null,
       "seriesTitle": null,
       "seriesOrder": null,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/ax-notes-app-requirements-first/fba30fc0cdb653b044a6007e41f9ca43ba228997336b32b033930fa8f47a9610.json",
-      "revision": "fba30fc0cdb653b044a6007e41f9ca43ba228997336b32b033930fa8f47a9610"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/ax-notes-app-requirements-first/ea1e3c7ce6a6dd1e381bfaad36c776db1731d6f181d7e150d34bca2d7022535e.json",
+      "revision": "ea1e3c7ce6a6dd1e381bfaad36c776db1731d6f181d7e150d34bca2d7022535e"
     },
     {
       "id": "first-vibe-coding",
@@ -49,7 +85,7 @@
       "description": "생각보다 빠른것 같지도, 생각보다 느린것 같지도 않네요. 처음 그 때도 이럴 것 같았어요.",
       "publishedAt": "2026-10-07",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/first-vibe-coding/",
+      "canonicalUrl": "https://ax.msalt.net/notes/first-vibe-coding/",
       "collectionId": "vibe-coding-workflow",
       "projectUrl": null,
       "projectId": null,
@@ -58,8 +94,8 @@
       "seriesId": "vibe-coding-workflow",
       "seriesTitle": "나의 바이브 코딩 workflow",
       "seriesOrder": 1,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/first-vibe-coding/9aa07a1cf11929a6ad2c2b9ac7e1dbc438226f0689b86b904c427196682e638f.json",
-      "revision": "9aa07a1cf11929a6ad2c2b9ac7e1dbc438226f0689b86b904c427196682e638f"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/first-vibe-coding/cf398e979784a99795c88c683be4b9b6f094206e87a88305ad8b15ab50629698.json",
+      "revision": "cf398e979784a99795c88c683be4b9b6f094206e87a88305ad8b15ab50629698"
     },
     {
       "id": "nanobot-telegram",
@@ -67,17 +103,17 @@
       "description": "nanobot과 대화는 했지만 이거 맞아?",
       "publishedAt": "2026-10-07",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/nanobot-telegram/",
+      "canonicalUrl": "https://ax.msalt.net/notes/nanobot-telegram/",
       "collectionId": "nanobot",
-      "projectUrl": "https://msaltnet.github.io/ax-notes-public/series/nanobot/",
+      "projectUrl": "https://ax.msalt.net/series/nanobot/",
       "projectId": "nanobot",
       "projectTitle": "나의 작은 에이전트 nanobot",
       "projectOrder": 4,
       "seriesId": null,
       "seriesTitle": null,
       "seriesOrder": null,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/nanobot-telegram/e841b47171d1c3ed4b09d08f98cad5be6f084960f972dcdeaed699f9ff4bc6eb.json",
-      "revision": "e841b47171d1c3ed4b09d08f98cad5be6f084960f972dcdeaed699f9ff4bc6eb"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/nanobot-telegram/d4a82b28330eae024a34c30e9a557872997727a46cdef0bd628ef9e401f3b84a.json",
+      "revision": "d4a82b28330eae024a34c30e9a557872997727a46cdef0bd628ef9e401f3b84a"
     },
     {
       "id": "free-llm-apis",
@@ -85,7 +121,7 @@
       "description": "무료 LLM API를 비교하고, OpenAI에 데이터를 공유하는 대신 하루 250만 토큰을 받는 꿀팁을 소개합니다. 물론 조건은 있습니다.",
       "publishedAt": "2026-10-06",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/free-llm-apis/",
+      "canonicalUrl": "https://ax.msalt.net/notes/free-llm-apis/",
       "collectionId": null,
       "projectUrl": null,
       "projectId": null,
@@ -94,8 +130,8 @@
       "seriesId": null,
       "seriesTitle": null,
       "seriesOrder": null,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/free-llm-apis/90f340a3796dc2ebc89a3bf75c1487c25ad7a749110026546b07b898a10de8d6.json",
-      "revision": "90f340a3796dc2ebc89a3bf75c1487c25ad7a749110026546b07b898a10de8d6"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/free-llm-apis/b8dcc626528941d7de80509acfdc65946821e034259d7045b5c2ce06d4484e0a.json",
+      "revision": "b8dcc626528941d7de80509acfdc65946821e034259d7045b5c2ce06d4484e0a"
     },
     {
       "id": "nanobot-ubuntu-setup",
@@ -103,17 +139,17 @@
       "description": "시작을 위한 시스템 셋업",
       "publishedAt": "2026-10-04",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/nanobot-ubuntu-setup/",
+      "canonicalUrl": "https://ax.msalt.net/notes/nanobot-ubuntu-setup/",
       "collectionId": "nanobot",
-      "projectUrl": "https://msaltnet.github.io/ax-notes-public/series/nanobot/",
+      "projectUrl": "https://ax.msalt.net/series/nanobot/",
       "projectId": "nanobot",
       "projectTitle": "나의 작은 에이전트 nanobot",
       "projectOrder": 3,
       "seriesId": null,
       "seriesTitle": null,
       "seriesOrder": null,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/nanobot-ubuntu-setup/c7b1bf7dcc418a9af231bb5ab9ae960beaaeb59745024959138a3b1ec5de6d4f.json",
-      "revision": "c7b1bf7dcc418a9af231bb5ab9ae960beaaeb59745024959138a3b1ec5de6d4f"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/nanobot-ubuntu-setup/dbd75c32deb9a1c4aa6830a294115b1df740044d6fddaf77dfec1a15e27dca5f.json",
+      "revision": "dbd75c32deb9a1c4aa6830a294115b1df740044d6fddaf77dfec1a15e27dca5f"
     },
     {
       "id": "nanobot-bot-selection",
@@ -121,17 +157,17 @@
       "description": "openclaw, nanoclaw, picoclaw... 그리고 nanobot",
       "publishedAt": "2026-10-01",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/nanobot-bot-selection/",
+      "canonicalUrl": "https://ax.msalt.net/notes/nanobot-bot-selection/",
       "collectionId": "nanobot",
-      "projectUrl": "https://msaltnet.github.io/ax-notes-public/series/nanobot/",
+      "projectUrl": "https://ax.msalt.net/series/nanobot/",
       "projectId": "nanobot",
       "projectTitle": "나의 작은 에이전트 nanobot",
       "projectOrder": 2,
       "seriesId": null,
       "seriesTitle": null,
       "seriesOrder": null,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/nanobot-bot-selection/cee6d8112c8ffdf36a9467b65e05fc82e3b793c0743d02d60b529ebd740341f2.json",
-      "revision": "cee6d8112c8ffdf36a9467b65e05fc82e3b793c0743d02d60b529ebd740341f2"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/nanobot-bot-selection/62a4979b033f1b00d8ba464cfa8c1c209180a0c7672e8be23e36804eded50f17.json",
+      "revision": "62a4979b033f1b00d8ba464cfa8c1c209180a0c7672e8be23e36804eded50f17"
     },
     {
       "id": "free-cloud-compute-for-agents",
@@ -139,7 +175,7 @@
       "description": "클라우드에 챗봇 하나씩은 다들 돌리고 계시죠? 요즘 워낙 다양한 상용 서비스가 있어서 딱히 직접 돌릴 필요를 못 느끼시는 분들도 계시지만...nanobot 같은 개인용 Agent를 상시 운영할 때 유용한 무료 VM과 호스팅 서비스를 소개합니다.",
       "publishedAt": "2026-09-30",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/free-cloud-compute-for-agents/",
+      "canonicalUrl": "https://ax.msalt.net/notes/free-cloud-compute-for-agents/",
       "collectionId": null,
       "projectUrl": null,
       "projectId": null,
@@ -148,8 +184,8 @@
       "seriesId": null,
       "seriesTitle": null,
       "seriesOrder": null,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/free-cloud-compute-for-agents/c2f0c70481acfcd6ae86fb29f1c89f6382c733608098d2d155fb85a6cb47ea55.json",
-      "revision": "c2f0c70481acfcd6ae86fb29f1c89f6382c733608098d2d155fb85a6cb47ea55"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/free-cloud-compute-for-agents/cf142f3909165d3467346b89cb2c0ee51676a8672361e468e7b35c0a1682521e.json",
+      "revision": "cf142f3909165d3467346b89cb2c0ee51676a8672361e468e7b35c0a1682521e"
     },
     {
       "id": "nanobot-requirements-first",
@@ -157,17 +193,17 @@
       "description": "무엇을 만들지 정하는 일이 구현보다 먼저",
       "publishedAt": "2026-09-28",
       "updatedAt": null,
-      "canonicalUrl": "https://msaltnet.github.io/ax-notes-public/notes/nanobot-requirements-first/",
+      "canonicalUrl": "https://ax.msalt.net/notes/nanobot-requirements-first/",
       "collectionId": "nanobot",
-      "projectUrl": "https://msaltnet.github.io/ax-notes-public/series/nanobot/",
+      "projectUrl": "https://ax.msalt.net/series/nanobot/",
       "projectId": "nanobot",
       "projectTitle": "나의 작은 에이전트 nanobot",
       "projectOrder": 1,
       "seriesId": null,
       "seriesTitle": null,
       "seriesOrder": null,
-      "detailUrl": "https://msaltnet.github.io/ax-notes-public/app/v1/notes/nanobot-requirements-first/331eb051df6676e420e04d70a10f7e2dced1b69d40ee5a773223e11f95ceb7da.json",
-      "revision": "331eb051df6676e420e04d70a10f7e2dced1b69d40ee5a773223e11f95ceb7da"
+      "detailUrl": "https://ax.msalt.net/app/v1/notes/nanobot-requirements-first/e300274afc9e8b8b7353b26e413bdd2a0296a0b2fe4597a9919287b57c010b42.json",
+      "revision": "e300274afc9e8b8b7353b26e413bdd2a0296a0b2fe4597a9919287b57c010b42"
     }
   ]
 }
