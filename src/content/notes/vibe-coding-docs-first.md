@@ -7,7 +7,7 @@ tags: [Vibe Coding, AI Coding, requirements, planning]
 collection: vibe-coding-workflow
 collection_order: 2
 aftertaste: "코드는 AI가 많이 써주지만, 무엇을 만들지는 내가 정해야 한다."
-draft: true
+draft: false
 ---
 
 바이브 코딩을 시작할 때 제일 궁금한게, SNS에 있는 후일담입니다. 몇 마디 던졌더니 만들어줬다며 올려놓은거 보면 결과물이 장난 없던데;; 진짜 그렇게 되는건지 궁금합니다.
