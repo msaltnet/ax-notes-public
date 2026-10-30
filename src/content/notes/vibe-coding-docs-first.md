@@ -1,6 +1,6 @@
 ---
 id: vibe-coding-docs-first
-title: "README·PRD·TRD 꼭 작성해야 할까?"
+title: "PRD·TRD 꼭 작성해야 할까?"
 description: "시장 조사와 대상 사용자부터 README·PRD·TRD까지. 프로젝트를 시작하기 전에 문제와 목표, 범위와 완료 기준을 정하는 방법."
 date: "2026-10-19"
 tags: [Vibe Coding, AI Coding, requirements, planning]
