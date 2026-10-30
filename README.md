@@ -51,7 +51,7 @@ verify는 Astro 타입 검사 → 정적 빌드 → Pagefind → Vitest 순서�
 
 .github/workflows/deploy.yml은 PR에서 검증만 하고 main push 또는 수동 dispatch에서 검증한 docs를 https://ax.msalt.net에 배포합니다. Node 22를 사용합니다. Pages source를 GitHub Actions로 설정하세요. 코드 변경만으로 실제 배포가 완료되지는 않습니다.
 
-기존 npm run deploy는 수동 gh-pages 게시용으로 남아 있습니다. Actions 운영 시에는 워크플로를 기준으로 게시하고 별도로 수동 게시하지 않습니다. Analytics는 공급자 확정 후 추가하며 내부 endpoint나 credential은 Public에 두지 않습니다.
+기존 npm run deploy는 수동 gh-pages 게시용으로 남아 있습니다. Actions 운영 시에는 워크플로를 기준으로 게시하고 별도로 수동 게시하지 않습니다. Google Analytics 4 측정 ID는 공통 레이아웃에서 설정합니다.
 
 Public / Inside / Both는 편집 선택입니다. Both 원고는 공개 가능한 내용으로 작성하여 사람이 양쪽에 각각 발행합니다. 자동 동기화·overlay는 없습니다. Inside 경험을 외부에 쓰려면 이 저장소에서 Public 글을 새로 작성합니다.
 
