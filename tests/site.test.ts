@@ -9,6 +9,16 @@ const publicPath = (path: string) => `${base}${path}`;
 const siteRoot = new URL(`${base}/`, process.env.SITE_URL ?? 'https://msaltnet.github.io').href;
 
 describe('built public site', () => {
+  it('loads and configures Google Analytics on every HTML page', () => {
+    const pages = readdirSync(dist(''), { recursive: true })
+      .filter((path): path is string => typeof path === 'string' && path.endsWith('.html'));
+    expect(pages.length).toBeGreaterThan(0);
+    for (const page of pages) {
+      const output = html(page);
+      expect(output, page).toContain('https://www.googletagmanager.com/gtag/js?id=G-3WQGHP4S0L');
+      expect(output, page).toContain("gtag('config', 'G-3WQGHP4S0L')");
+    }
+  });
   it('uses the first body image for sharing and falls back when a note has no image', () => {
     const pages = readdirSync(dist('notes'), { recursive: true })
       .filter((path): path is string => typeof path === 'string' && /[\\/]index\.html$/.test(path));
@@ -121,3 +131,4 @@ describe('restored branding and content', () => {
     expect(html('series/nanobot/index.html')).toContain('나의 작은 에이전트 nanobot');
   });
 });
+
