@@ -131,3 +131,4 @@ describe('restored branding and content', () => {
     expect(html('series/nanobot/index.html')).toContain('나의 작은 에이전트 nanobot');
   });
 });
+
